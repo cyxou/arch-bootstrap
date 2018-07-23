@@ -1,0 +1,11 @@
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Symlink .vimrc file
+  file:
+    src: "{{ wsl_bootstrap_home }}/roles/vim/files/vimrc.symlink"
+    dest: "{{ wsl_bootstrap_user_home }}/.vimrc"
+    state: link
+    force: yes
+
+- include: vim-plugins.yml

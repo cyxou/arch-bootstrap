@@ -1,0 +1,6 @@
+- name: Install common packages
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ base_packages }}"
+  become: yes

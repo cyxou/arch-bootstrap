@@ -1,0 +1,6 @@
+- name: Install X11 packages
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ xorg_packages }}"
+  become: yes

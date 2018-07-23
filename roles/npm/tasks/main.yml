@@ -1,0 +1,5 @@
+- name: Install NodeJS
+  pacman:
+    name: npm
+    state: latest
+  become: yes

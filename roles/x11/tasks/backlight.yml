@@ -1,0 +1,5 @@
+- name: Make keyboard backlight working
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/x11/files/31-xbacklight.conf"
+    dest: /etc/X11/xorg.conf.d/31-xbacklight.conf
+  become: yes

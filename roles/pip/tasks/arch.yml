@@ -1,0 +1,5 @@
+- name: Install pip
+  pacman:
+    name: python-pip
+    state: present
+  become: yes

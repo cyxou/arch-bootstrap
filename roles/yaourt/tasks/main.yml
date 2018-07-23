@@ -1,0 +1,19 @@
+- name: Add archlinux.fr repository to pacman
+  lineinfile:
+    dest: /etc/pacman.conf
+    state: present
+    line: "{{ item }}"
+  with_items:
+    - "[archlinuxfr]"
+    - "SigLevel = Never"
+    - "Server = http://repo.archlinux.fr/$arch"
+  become: yes
+  when: ansible_distribution == "Archlinux"
+
+- name: Install yaourt
+  pacman:
+    name: yaourt
+    state: present
+    update_cache: yes
+  become: yes
+  when: ansible_distribution == "Archlinux"

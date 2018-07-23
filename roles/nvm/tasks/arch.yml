@@ -1,0 +1,6 @@
+- name: Install nvm from AUR
+  aur:
+    name: nvm
+    skip_installed: yes
+  become: yes
+  become_user: aur_builder

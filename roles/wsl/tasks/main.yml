@@ -1,0 +1,5 @@
+- name: Copy wsl.conf
+  copy:
+    src: "wsl.conf"
+    dest: "/etc/wsl.conf"
+  become: yes

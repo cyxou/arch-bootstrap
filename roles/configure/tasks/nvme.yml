@@ -1,0 +1,11 @@
+- name: Load nvme module
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_nvme_core.conf"
+    dest: "/etc/modules-load.d/nvme_core.conf"
+  become: yes
+
+- name: Set options for nvme_core kernel module
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/nvme_core_options.conf"
+    dest: "/etc/modprobe.d/nvme_core_options.conf"
+  become: yes

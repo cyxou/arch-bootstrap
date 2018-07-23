@@ -1,0 +1,10 @@
+- name: Install VirtualBox
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - virtualbox
+    - virtualbox-host-modules-dkms
+    - virtualbox-guest-utils
+    - virtualbox-guest-dkms
+  become: yes

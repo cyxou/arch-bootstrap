@@ -1,0 +1,16 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Link global gitignore file
+  file:
+    src: "{{ wsl_bootstrap_home }}/roles/git/files/gitignore_global.symlink"
+    dest: "{{ wsl_bootstrap_user_home }}/.gitignore_global"
+    state: link
+    force: yes
+
+- name: Make sure gitconfig is up to date
+  template:
+    src: "gitconfig.j2"
+    dest: "{{ wsl_bootstrap_user_home }}/.gitconfig"

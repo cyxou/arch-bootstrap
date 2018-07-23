@@ -1,0 +1,6 @@
+- name: Suspend on power button
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "^HandlePowerKey"
+    line: "HandlePowerKey=suspend"
+  become: true

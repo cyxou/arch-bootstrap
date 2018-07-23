@@ -1,0 +1,5 @@
+- name: Install awesome via pacman
+  pacman:
+    name: awesome
+    state: present
+  become: yes

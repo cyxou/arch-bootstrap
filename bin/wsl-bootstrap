@@ -1,0 +1,4 @@
+echo "Setting up your WSL environment..."
+DIR=$(dirname "$(readlink -f "$0")")
+# ansible-playbook -i ${DIR}/../hosts  ${DIR}/../wsl-playbook.yml -K
+ansible-playbook -i ${DIR}/../hosts  ${DIR}/../wsl-playbook.yml

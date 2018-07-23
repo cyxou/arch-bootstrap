@@ -1,0 +1,19 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Install nvm
+  git:
+    repo: https://github.com/creationix/nvm.git
+    dest: "{{ wsl_bootstrap_user_home }}/.nvm"
+  tags: nvm
+
+- name: Source nvm in ~/.zshrc
+  lineinfile:
+    path: "{{ wsl_bootstrap_user_home }}/.zshrc"
+    line: "{{ item }}"
+  with_items:
+    - 'export NVM_DIR="$HOME/.nvm"'
+    - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+  tags: nvm

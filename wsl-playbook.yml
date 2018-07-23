@@ -1,0 +1,32 @@
+- name: Set up local development environment
+  hosts: local
+  roles:
+#   - linux-lts
+    - configure
+#   - base
+#   - x11
+#   - fonts
+#   - ssh
+#   - net
+#   - aur
+#   - awesome
+#   - yaourt
+#   - base16
+#   - wsl
+#   - git
+#   - pip
+#   - zsh
+#   - tmux
+#   - docker
+#   - docker-compose
+#   - nvm
+#   - aws
+#   - nodejs
+#   - npm
+#   - vim
+#   - browsers
+#   - minikube
+
+  vars_prompt:
+    - name: user_password
+      prompt: "Enter desired user password"

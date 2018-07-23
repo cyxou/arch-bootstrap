@@ -1,0 +1,63 @@
+# https://wiki.archlinux.org/index.php/Dell_XPS_15_9560
+- name: Set options for i915 kernel module
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/i915_options.conf"
+    dest: "/etc/modprobe.d/i915_options.conf"
+  become: yes
+
+# https://wiki.archlinux.org/index.php/TLP
+- name: Install and configure TLP
+  become: yes
+  block:
+    - name: Install tlp
+      pacman:
+        name: tlp
+        state: present
+
+    - name: Enable tlp and tlp-sleep services
+      systemd:
+        name: "{{ item }}"
+        enabled: yes
+      with_items:
+        - tlp.service
+        - tlp-sleep.service
+
+    - name: Mask systemd-rfkill.service and systemd-rfkill.socket
+      systemd:
+        name: "{{ item }}"
+        masked: yes
+      with_items:
+        - systemd-rfkill.service
+        - systemd-rfkill.socket
+        - NetworkManager.service
+      failed_when: no
+
+    - name: Configure tlp to use battery mode
+      lineinfile:
+        path: /etc/default/tlp
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "^TLP_DEFAULT_MODE=.*$", line: "TLP_DEFAULT_MODE=BAT"}
+        - { regexp: "^TLP_PERSISTENT_DEFAULT=.*$", line: "TLP_PERSISTENT_DEFAULT=1"}
+
+
+# https://wiki.archlinux.org/index.php/Powertop
+- name: Install and configure powertop
+  become: yes
+  block:
+    - name: Install powertop
+      pacman:
+        name: powertop
+        state: present
+
+    - name: Copy powertop.service
+      copy:
+        src: "{{ wsl_bootstrap_home }}/roles/configure/files/powertop.service"
+        dest: /etc/systemd/system/powertop.service
+
+    - name: Enable powertop.service
+      systemd:
+        name: powertop.service
+        enabled: yes
+        state: started

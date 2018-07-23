@@ -1,0 +1,6 @@
+- name: Install minikube from AUR
+  aur:
+    name: minikube-bin
+    skip_installed: yes
+  become: yes
+  become_user: aur_builder

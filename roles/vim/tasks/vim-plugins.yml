@@ -1,0 +1,38 @@
+- name: Install Vundle
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: "{{ wsl_bootstrap_user_home }}/.vim/bundle/Vundle.vim"
+
+- name: Install vim plugins
+  shell: vim -c ":PluginInstall" -c q -c q -c q
+  register: pluginsInstalled
+
+- name: Compile YouCompleteMe
+  block:
+
+    - name: Install build dependencies
+      pacman:
+        name: cmake
+        state: present
+      become: yes
+
+    - name: Create the 'builds' directory
+      file:
+        path: "{{ wsl_bootstrap_user_home }}/ycm_build"
+        state: directory
+
+    - name: Generate makefiles
+      command: sh -c "cmake -G 'Unix Makefiles' -DUSE_PYTHON2=OFF . {{ wsl_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp"
+      args:
+        chdir: "{{ wsl_bootstrap_user_home }}/ycm_build"
+
+    - name: Compile the library
+      command: sh -c "cmake --build . --target ycm_core --config Release"
+      args:
+        chdir: "{{ wsl_bootstrap_user_home }}/ycm_build"
+  when: pluginsInstalled is succeeded
+
+- name: Install ternjs for vim
+  npm:
+    path: "{{wsl_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/tern_runtime"
+  when: pluginsInstalled is succeeded

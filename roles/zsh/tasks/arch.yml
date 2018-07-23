@@ -1,0 +1,6 @@
+- name: Install tmux
+  pacman:
+    name: zsh
+    state: latest
+  become: yes
+

@@ -1,0 +1,5 @@
+- name: Install aws-cli
+  pacman:
+    name: aws-cli
+    state: latest
+  become: yes

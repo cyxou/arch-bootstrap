@@ -1,0 +1,53 @@
+# Installation and setup
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+# - import_tasks: redhat.yml
+#   when: ansible_os_family == "RedHat"
+# - import_tasks: osx.yml
+#   when: ansible_os_family == "Darwin"
+
+# Configuration
+- name: Check if zshrc already exists
+  stat: path="{{wsl_bootstrap_user_home}}/.zshrc"
+  register: zshrc_stat
+
+- name: Back up zshrc if it exists
+  command: mv ~/.zshrc ~/.zshrc.bak
+  args:
+    creates: "{{wsl_bootstrap_user_home}}/.zshrc.bak"
+  when: zshrc_stat.stat.exists
+
+- name: Clone oh-my-zsh
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh
+    dest: "{{ wsl_bootstrap_user_home }}/.oh-my-zsh"
+  register: cloning
+
+- name: Link zshrc.symlink to ~/.zshrc
+  file:
+    src: "{{ wsl_bootstrap_home }}/roles/zsh/files/zshrc.symlink"
+    dest: "{{ wsl_bootstrap_user_home }}/.zshrc"
+    state: link
+    force: yes
+  when: cloning is succeeded
+
+- name: Install PowerLevel9k
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: "{{ wsl_bootstrap_user_home }}/.oh-my-zsh/custom/themes/powerlevel9k"
+
+# When using WSL on Windows prior 16215 build, we can't change the shell with
+# the `chsh -s /usr/bin/zsh` command. We need to launch zsh from the .bashrc file.
+# - name: Launch zsh from the .bashrc file
+#   lineinfile:
+#     path: "{{ wsl_bootstrap_user_home }}/.bashrc"
+#     regexp: 'exec zsh'
+#     line: "if [ -t 1 ]; then exec zsh; fi"
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ lookup('env','USER') }}"
+    shell: /usr/bin/zsh
+  become: yes

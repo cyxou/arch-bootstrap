@@ -1,0 +1,48 @@
+# Taken from here:
+# https://wiki.archlinux.org/index.php/Dell_XPS_15_9560#Disable_discrete_GPU
+
+# Disabling discrete GPU with acpi_call method
+# Unfortunately the acpi_call method does not work well with the linux-lts kernel
+#- name: Blacklist discrete GPU via modprobe
+#  copy:
+#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/blacklist-gpu.conf"
+#    dest: "/etc/modprobe.d/blacklist-gpu.conf"
+#  become: yes
+#
+#- name: Install acpi_call package
+#  pacman:
+#    name: acpi_call-dkms
+#    state: present
+#  become: yes
+#
+#- name: Load acpi_call on boot
+#  copy:
+#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_acpi_call.conf"
+#    dest: "/etc/modules-load.d/acpi_call.conf"
+#  become: yes
+#
+## This thing makes arch unbootable when using lts kernel
+#- name: Turn off the GPU at boot via systemd-tmpfiles
+#  copy:
+#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/tmpfiles_acpi_call.conf"
+#    dest: "/etc/tmpfiles.d/acpi_call.conf"
+#  become: yes
+
+# Disable descrete GPU with the bbswitch method
+- name: Install bbswitch package
+  pacman:
+    name: bbswitch-dkms
+    state: present
+  become: yes
+
+- name: Copy bbswitch.conf
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/bbswitch.conf"
+    dest: "/etc/modprobe.d/bbswitch.conf"
+  become: yes
+
+- name: Load bbswitch on boot
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_bbswitch.conf"
+    dest: "/etc/modules-load.d/bbswitch.conf"
+  become: yes

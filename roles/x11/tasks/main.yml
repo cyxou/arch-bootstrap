@@ -1,0 +1,6 @@
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- include: backlight.yml
+- include: capslock2ctrl.yml
+- include: touchpad.yml

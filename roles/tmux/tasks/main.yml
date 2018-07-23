@@ -1,0 +1,65 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+# - name: Check if tmux installed
+#   shell: command -v tmux >/dev/null 2>&1
+#   register: tmux_not_exist
+#   failed_when: tmux_not_exist.rc > 0
+
+# - debug: msg="{{ tmux_not_exist.rc }}" # it returns rc 0
+
+# - name: Install tmux from source
+#   when: tmux_not_exist.rc == 1
+#   block:
+#     - name: Download tmux v2.6 sources
+#       get_url:
+#         url: https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
+#         dest: /tmp/tmux-2.6.tar.gz
+
+#     - name: Unarchive tmux sources
+#       unarchive:
+#         src: /tmp/tmux-2.6.tar.gz
+#         dest: /tmp
+
+#     - name: Configure tmux
+#       command: ./configure
+#       args:
+#         chdir: /tmp/tmux-2.6
+
+#     - name: Prepare tmux
+#       command: make
+#       args:
+#         chdir: /tmp/tmux-2.6
+
+#     - name: Make install tmux
+#       make:
+#         chdir: /tmp/tmux-2.6
+#         target: install
+#       become: yes
+
+- name: Link tmux config files in home directory
+  block:
+    - name: Link tmux.conf
+      file:
+        src: "{{ wsl_bootstrap_home }}/roles/tmux/files/tmux.conf"
+        dest: "{{ wsl_bootstrap_user_home }}/.tmux.conf"
+        state: link
+        force: yes
+    - name: Link tmux-statusline.conf
+      file:
+        src: "{{ wsl_bootstrap_home }}/roles/tmux/files/tmux-statusline.conf"
+        dest: "{{ wsl_bootstrap_user_home }}/.tmux-statusline.conf"
+        state: link
+        force: yes
+
+
+- name: Install Tmux Plugin Manager
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ wsl_bootstrap_user_home }}/.tmux/plugins/tpm"
+
+- name: Load italic terminfo
+  command: "tic {{ wsl_bootstrap_home }}/roles/tmux/files/tmux-256color-italic.terminfo"
+

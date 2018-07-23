@@ -1,0 +1,39 @@
+- name: Install linux-lts
+  block:
+    - name: Install packages with pacman
+      pacman:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - linux-lts
+        - linux-lts-headers
+      register: installed
+
+    - name: Make corresponding changes in /boot/loader/entries/arch.conf
+      block:
+        - name: Make sure to remove /vmlinuz-linux from the /boot/loader/entries/arch.conf
+          lineinfile:
+            path: /boot/loader/entries/arch.conf
+            state: absent
+            regexp: "^linux\\s+/vmlinuz-linux$"
+
+        - name: Specify /vmlinuz-linux-lts in /boot/loader/entries/arch.conf
+          lineinfile:
+            path: /boot/loader/entries/arch.conf
+            state: present
+            line: "linux  /vmlinuz-linux-lts"
+
+        - name: Make sure to remove /initramfs-linux-lts.img from the /boot/loader/entries/arch.conf
+          lineinfile:
+            path: /boot/loader/entries/arch.conf
+            state: absent
+            regexp: "^initrd\\s+/initramfs-linux.img$"
+
+        - name: Specify /initramfs-linux-lts.img in /boot/loader/entries/arch.conf
+          lineinfile:
+            path: /boot/loader/entries/arch.conf
+            state: present
+            line: "initrd  /initramfs-linux-lts.img"
+      when: installed is succeeded
+  become: yes
+  when: ansible_os_family == "Archlinux"

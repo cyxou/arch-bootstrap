@@ -1,0 +1,3 @@
+- name: Install Docker with yum
+  yum: name=docker state=latest
+  become: yes

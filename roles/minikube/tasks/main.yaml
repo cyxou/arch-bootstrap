@@ -1,0 +1,33 @@
+- import_tasks: archlinux.yaml
+  when: ansible_os_family == "Archlinux"
+
+- name: Check if minikube already running
+  command: minikube status
+  no_log: yes
+  failed_when: no
+  register: minikube_status
+
+# - name: check minikube_status
+#   debug:
+#     msg: "{{ minikube_status }}"
+
+# Start minikube only if checking it's status returned nonzero code
+- name: Start minikube
+  command: >
+    minikube start \
+    --extra-config "apiserver.authorization-mode=RBAC"
+  when: minikube_status.rc > 0
+
+- name: Grab minikube IP
+  command: minikube ip
+  register: minikube_ip
+
+- name: Append minikube IP address to /etc/hosts file
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^{{ minikube_ip.stdout }}"
+    line: "{{ minikube_ip.stdout }}  minikube.local"
+    owner: root
+    group: root
+    mode: 0644
+  become: yes

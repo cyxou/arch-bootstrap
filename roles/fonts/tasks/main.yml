@@ -1,0 +1,12 @@
+- name: Install base fonts
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ base_fonts }}"
+
+- name: Install AUR fonts
+  aur:
+    name: "{{ item }}"
+  with_items: "{{ aur_fonts }}"
+  tags:
+    - aur

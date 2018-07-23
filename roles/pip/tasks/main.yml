@@ -1,0 +1,24 @@
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Configure pip to always install packages in user's folder
+  block:
+
+    - name: Create .config/pip directory if doesn't exist
+      file:
+        path: "{{ wsl_bootstrap_user_home }}/.config/pip"
+        state: directory
+
+    - name: Create .config/pip/pip.conf if doesn't exist
+      file:
+        path: "{{ wsl_bootstrap_user_home }}/.config/pip/pip.conf"
+        state: touch
+
+    - name: Make sure that packages are installed under current user
+      lineinfile:
+        dest: "{{ wsl_bootstrap_user_home }}/.config/pip/pip.conf"
+        state: present
+        line: "{{ item }}"
+      with_items:
+        - "[install]"
+        - "user = true"

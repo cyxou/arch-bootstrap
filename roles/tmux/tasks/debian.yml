@@ -1,0 +1,13 @@
+
+- name: Uninstall old tmux version
+  apt: name=tmux state=latest
+  become: yes
+
+# - name: Install tmux build dependencies
+#   apt: "name={{ item }} state=present"
+#   with_items:
+#     - exuberant-ctags
+#     - cmake
+#     - libevent-dev
+#     - libncurses5-dev
+#   become: yes

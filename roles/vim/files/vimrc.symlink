@@ -1,0 +1,440 @@
+set nocompatible              " be iMproved, required
+set clipboard=unnamed
+set backupcopy=yes " this lets webpack dev server to watch for changes in files
+"set nobackup
+"set nowritebackup
+"set noswapfile
+set history=100
+set nowrap
+
+filetype off                  " required
+
+set modelines=1
+
+" set the runtime path to include Vundle and initialize
+let g:vundle_default_git_proto = 'git'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+Plugin 'airblade/vim-gitgutter'
+Plugin 'chriskempson/base16-vim'
+Plugin 'craigemery/vim-autotag'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'editorconfig/editorconfig-vim'
+"Plugin 'edkolev/tmuxline.vim'
+Plugin 'elzr/vim-json'
+Plugin 'heavenshell/vim-jsdoc'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'mhinz/vim-startify'
+Plugin 'mileszs/ack.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'raimondi/delimitMate'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'sirver/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'stephpy/vim-yaml'
+Plugin 'ternjs/tern_for_vim'
+Plugin 'quramy/tsuquyomi'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/git-file.vim'
+Plugin 'ryanoasis/vim-devicons' " vim-devicons should be the last loaded plugin
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+" Wrap gitcommit file types at the appropriate length
+filetype indent plugin on
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+syntax enable
+set foldmethod=syntax
+set background=dark
+"colorscheme solarized
+" Set shell colors to make it work with urxvt and termite
+" More info at https://github.com/chriskempson/base16-shell
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
+set ttimeoutlen=100
+
+" Enable vim-airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='base16_oceanicnext'
+
+" Enable tmux-airline
+let g:airline#extensions#tmuxline#enabled = 1
+
+let g:airline_powerline_fonts = 1
+"let g:airline_section_c = '%{strftime("%c")}'
+
+" EasyAlign mappings
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" Few options that just makes things better
+set encoding=utf-8
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set cursorline
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+set number
+set relativenumber
+set undofile
+nnoremap <F7> :setlocal spell! spelllang=en_us<CR>
+
+"nnoremap / /\v
+"vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+
+" Leader mappings
+let mapleader = ","
+
+" quick save
+nnoremap <leader>w :update<CR>
+
+" open .vimrc file on the fly in seperate split
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
+
+" source .vimrc file
+nnoremap <leader>sv :so $MYVIMRC<CR>
+
+" remove highlighting from search results
+nnoremap <leader><space> :noh<CR>
+
+" toggle display of hidden symbols like tabs and trailing spaces
+nnoremap <leader>l :set invlist<CR>
+
+" delete buffer from current window substituting it with previous buffer
+nnoremap <leader>x :bp\|bd #<CR>
+
+" Gstatus
+nnoremap <leader>gs :Gstatus<CR>
+
+
+nnoremap <tab> %
+vnoremap <tab> %
+
+" Tabs switching
+nnoremap [t :tabprevious<CR>
+nnoremap ]t :tabnext<CR>
+nnoremap ]T :tablast<CR>
+nnoremap [T :tabfirst<CR>
+
+" The next section makes Vim handle long lines correctly:
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+
+" Tab settings
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" Highlight hidden characters
+set listchars=tab:>·,trail:~,space:·,eol:¬
+
+" Split settings
+set splitright
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" >>>>>>>>>>>>>>>>>>>>>> Supertab settings
+let g:SuperTabDefaultCompletionType = "context"
+" Ternjs better support
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "context"
+autocmd FileType javascript let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+" <<<<<<<<<<<<<<<<<<<<<< Supertab settings
+
+" >>>>>>>>>>>>>>>>>>>>>> Neocomplete settings
+"let g:neocomplete#enable_at_startup = 1
+
+"" Use smartcase.
+"let g:neocomplete#enable_smart_case = 1
+
+"" Set minimum syntax keyword length.
+"let g:neocomplete#sources#syntax#min_keyword_length = 2
+
+"" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+"" Use head match instead of default fuzzy match.
+"let g:neocomplete#enable_fuzzy_completion = 0
+" <<<<<<<<<<<<<<<<<<<<<< Neocomplete settings
+
+" >>>>>>>>>>>>>>>>>>>>>> CtrlP settings
+"let g:ctrlp_cmd = 'CtrlPBuffer'
+let g:ctrlp_cmd = 'CtrlP'
+
+" CtrlP - files matched are ignored when expanding wildcards
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/build/*,*/dist/*,*/coverage/*
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+" Ignore files in .gitignore
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" Close buffer via <C-x> using CtrlP
+let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
+
+function! CtrlPMapping()
+  nnoremap <buffer> <silent> <C-x> :call <sid>DeleteBuffer()<cr>
+endfunction
+
+function! s:DeleteBuffer()
+  let path = fnamemodify(getline('.')[2:], ':p')
+  let bufn = matchstr(path, '\v\d+\ze\*No Name')
+  exec "bd" bufn ==# "" ? path : bufn
+  exec "norm \<F5>"
+endfunction
+" <<<<<<<<<<<<<<<<<<<<<< CtrlP settings
+
+" Syntastic tweaking
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"set statusline+=%{fugitive#statusline()}
+
+let g:syntastic_javascript_checkers = ['jshint']
+"let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_check_on_open=1
+let g:Syntastic_enable_signs=1
+
+" Typescript support via tsuquyomi. You shouldn't use 'tsc' checker."
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
+
+" Explore tweaking
+let g:netrw_banner = 0
+
+" NerdTree style in Explorer mode
+let g:netrw_liststyle=3
+let g:NERDTreeWinSize=20
+
+" Hide vim's sw* files in netrw
+let g:netrw_list_hide= '.*\.swp$,.*\.un\~$'
+
+" from http://ivanvbrennan.nyc/blog/2014/01/16/rigging-vims-netrw
+fun! VexToggle(dir)
+  if exists("t:vex_buf_nr")
+    call VexClose()
+  else
+    call VexOpen(a:dir)
+  endif
+endf
+
+fun! VexOpen(dir)
+  let g:netrw_browse_split=4 "Open files in previous window
+  let vex_width = 30
+
+  execute "Vexplore " . a:dir
+  let t:vex_buf_nr = bufnr("%")
+  wincmd H
+
+  call VexSize(vex_width)
+endf
+
+"nnoremap <leader>` :call VexToggle("")<CR>
+nnoremap <leader>` :NERDTreeToggle<CR>
+
+fun! VexClose()
+  let cur_win_nr = winnr()
+  let target_nr = ( cur_win_nr == 1 ? winnr("#") : cur_win_nr )
+
+  1wincmd w
+  close
+  unlet t:vex_buf_nr
+
+  execute (target_nr - 1) . "wincmd w"
+  call NormalizeWidth()
+endf
+
+fun! VexSize(vex_width)
+  execute "vertical resize" . a:vex_width
+  set winfixwidth
+  call NormalizeWidth()
+endf
+
+fun! NormalizeWidth()
+  let eadir_pref = &eadirection
+  set eadirection=hor
+  set equalalways! equalalways!
+  let &eadirection = eadir_pref
+endf
+
+augroup NetrwGroup
+  autocmd! BufEnter * call NormalizeWidth()
+augroup END
+
+" Json highlighting
+au! BufRead,BufNewFile *.json set filetype=json
+au! BufRead,BufNewFile *.template set filetype=json
+let g:vim_json_syntax_conceal = 0
+
+" JsDoc syntax highlighting
+au! BufRead,BufNewFile *.jsdoc set syntax=javascript
+
+" Autodelete fugitive hidden buffers
+au! BufReadPost fugitive://* set bufhidden=delete
+set diffopt+=vertical
+
+augroup json_autocmd
+  autocmd!
+  autocmd FileType json set autoindent
+  autocmd FileType json set formatoptions=q2l
+  autocmd FileType json set textwidth=78 shiftwidth=2
+  autocmd FileType json set softtabstop=2 tabstop=8
+  autocmd FileType json set expandtab
+  "autocmd FileType json set foldmethod=syntax
+augroup END
+
+" Do not list netrw buffers
+autocmd FileType netrw setl bufhidden=delete
+
+" Append ; to end of the line and return to previous location
+imap <C-c> <CR><Esc>A;<Esc>O
+
+" Do not show Scratchpad for previewing code completion
+set completeopt-=preview
+
+" --- Strip trailing whitespace ---
+function! StripWhitespace ()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+
+" Trailing white space (strip spaces)
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" Copy and paste between Vim instances
+let g:session_yank_file="~/.vim_temp"
+map <silent> <Leader>y :call Session_yank()<CR>
+vmap <silent> <Leader>y y:call Session_yank()<CR>
+vmap <silent> <Leader>Y Y:call Session_yank()<CR>
+nmap <silent> <Leader>p :call Session_paste("p")<CR>
+nmap <silent> <Leader>P :call Session_paste("P")<CR>
+
+" Copy selection to xclip 
+vmap "*y :!xclip -f -sel clip
+map "*p :r!xclip -o -sel clip
+
+function! Session_yank()
+  new
+  call setline(1,getregtype())
+  put
+  silent exec 'wq! ' . g:session_yank_file
+  exec 'bdelete ' . g:session_yank_file
+endfunction
+
+function! Session_paste(command)
+  silent exec 'sview ' . g:session_yank_file
+  let l:opt=getline(1)
+  silent 2,$yank
+  if (l:opt == 'v')
+    call setreg('"', strpart(@",0,strlen(@")-1), l:opt) " strip trailing endline ?
+  else
+    call setreg('"', @", l:opt)
+  endif
+  exec 'bdelete ' . g:session_yank_file
+  exec 'normal ' . a:command
+endfunction
+
+" Tern settings
+
+let g:tern_show_argument_hints='on_hold'
+" and
+let g:tern_map_keys=2
+
+" Toggle paste mode
+set pastetoggle=<F2>
+
+" Increase vim-gutter number of signs
+let g:gitgutter_max_signs = 2000
+
+" NERDCommenter settings
+let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
+
+" EditorConfig plugin settings
+" Ensure that this plugin works well with Tim Pope's fugitive and avoid loading EditorConfig for any remote files over ssh:
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+" Ack tweaking
+nnoremap <Leader>a :Ack! --ignore-dir=coverage --ignore-dir=build --ignore-dir=public<Space>
+
+" UltiSnips config
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.dotfiles/vim/UltiSnips']
+
+" Search for visually selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" Make comments italic
+highlight Comment cterm=italic
+set t_ZH=[3m
+set t_XR=[23m
+
+" Do not store temporary files outside of the secure working directory when editing secrets.
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile

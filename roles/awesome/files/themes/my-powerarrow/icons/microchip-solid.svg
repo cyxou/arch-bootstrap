@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   aria-hidden="true"
+   data-prefix="fas"
+   data-icon="microchip"
+   class="svg-inline--fa fa-microchip fa-w-16"
+   role="img"
+   viewBox="0 0 620 620"
+   version="1.1"
+   id="svg5385"
+   sodipodi:docname="microchip-solid.svg"
+   width="512"
+   height="512"
+   inkscape:version="0.92.2 2405546, 2018-03-11">
+  <metadata
+     id="metadata5391">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5389" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1918"
+     inkscape:window-height="1060"
+     id="namedview5387"
+     showgrid="false"
+     inkscape:zoom="0.4609375"
+     inkscape:cx="-121.49153"
+     inkscape:cy="256"
+     inkscape:window-x="0"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg5385"
+     scale-x="1.2"
+     viewbox-width="620" />
+  <path
+     d="m 478.52882,102.7661 v 416.00001 c 0,26.51 -21.49,48 -48,48 h -224 c -26.51,0 -48,-21.49 -48,-48 V 102.7661 c 0,-26.509998 21.49,-47.999998 48,-47.999998 h 224 c 26.51,0 48,21.49 48,47.999998 z m 96,58.00001 v 12 a 6,6 0 0 1 -6,6 h -18 v 6 a 6,6 0 0 1 -6,6 h -42 v -48 h 42 a 6,6 0 0 1 6,6 v 6 h 18 a 6,6 0 0 1 6,6 z m 0,96 v 12 a 6,6 0 0 1 -6,6 h -18 v 6 a 6,6 0 0 1 -6,6 h -42 v -48 h 42 a 6,6 0 0 1 6,6 v 6 h 18 a 6,6 0 0 1 6,6 z m 0,96 v 12 a 6,6 0 0 1 -6,6 h -18 v 6 a 6,6 0 0 1 -6,6 h -42 v -48 h 42 a 6,6 0 0 1 6,6 v 6 h 18 a 6,6 0 0 1 6,6 z m 0,96 v 12 a 6,6 0 0 1 -6,6 h -18 v 6 a 6,6 0 0 1 -6,6 h -42 v -48 h 42 a 6,6 0 0 1 6,6 v 6 h 18 a 6,6 0 0 1 6,6 z m -482.000007,-18 h 42.000007 v 48 H 92.528813 a 6,6 0 0 1 -6,-6 v -6 h -18 a 6,6 0 0 1 -6,-6 v -12 a 6,6 0 0 1 6,-6 h 18 v -6 a 6,6 0 0 1 6,-6 z m 0,-96 h 42.000007 v 48 H 92.528813 a 6,6 0 0 1 -6,-6 v -6 h -18 a 6,6 0 0 1 -6,-6 v -12 a 6,6 0 0 1 6,-6 h 18 v -6 a 6,6 0 0 1 6,-6 z m 0,-96 h 42.000007 v 48 H 92.528813 a 6,6 0 0 1 -6,-6 v -6 h -18 a 6,6 0 0 1 -6,-6 v -12 a 6,6 0 0 1 6,-6 h 18 v -6 a 6,6 0 0 1 6,-6 z m 0,-96 h 42.000007 v 48 H 92.528813 a 6,6 0 0 1 -6,-6 v -6 h -18 a 6,6 0 0 1 -6,-6 v -12 a 6,6 0 0 1 6,-6 h 18 v -6 a 6,6 0 0 1 6,-6 z"
+     id="path5383"
+     style="fill:#fafafa;fill-opacity:1"
+     inkscape:connector-curvature="0" />
+</svg>

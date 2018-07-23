@@ -1,0 +1,24 @@
+# This is needed in order to not be charged for sharing internet from a mobile device
+- name: Set IPv4 TTL to 65
+  command: sysctl net.ipv4.ip_default_ttl=65
+  become: yes
+
+- name: Persist IPv4 TTL on restarts
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/net/files/00-ipv4-ttl.conf"
+    dest: "/etc/sysctl.d/00-ipv4-ttl.conf.conf"
+  become: yes
+
+# Automatically start/enable netctl profiles
+- name: Install wpa_actiond
+  pacman:
+    name: wpa_actiond
+    state: present
+  become: yes
+
+- name: Start and enable the netctl-auto@interface.service to autoconnect to known wifi
+  systemd:
+    name: "netctl-auto@{{ wifi_interface }}.service"
+    enabled: yes
+    state: started
+  become: yes
