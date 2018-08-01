@@ -15,7 +15,8 @@
 - name: Blacklist the user from LXDM login screen
   block:
     - name: Make sure that lxdm.conf exists
-      stat: path="/etc/lxdm/lxdm.conf"
+      stat:
+        path: /etc/lxdm/lxdm.conf
       register: lxdm_stat
 
     - lineinfile:

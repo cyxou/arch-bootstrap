@@ -144,3 +144,5 @@ bindkey -M viins '\e.' insert-last-word
 if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh | sed 's/kubectl/k/g')
 fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

@@ -1,2 +1,6 @@
 *.retry
 Session.vim
+
+# vim specific
+.*.un~
+.*.sw[a-z]

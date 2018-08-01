@@ -1,0 +1,10 @@
+- name: Install lxdm
+  pacman:
+    name: lxdm
+    state: present
+  become: yes
+
+- name: Enable lxdm.service
+  systemd:
+    name: lxdm.service
+    enabled: yes

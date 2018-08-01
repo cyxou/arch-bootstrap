@@ -25,7 +25,7 @@ git:
   # See https://github.com/pstadler/keybase-gpg-github setup instructions
   signing_key:
 
-hostname: XPS9570
+hostname: xps
  
 # Check it out with ifconfig
 wifi_interface: wlp59s0
@@ -48,7 +48,8 @@ xorg_packages:
   - xorg-xmodmap
   - xorg-xbacklight
   - xf86-input-libinput
-  - xf86-video-intel
+  - libinput
+  - lxdm
 
 aur:
   dir: aur

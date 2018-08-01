@@ -213,7 +213,7 @@ local tempicon = wibox.widget.imagebox(theme.widget_temp)
 -- grep "" /sys/devices/platform/coretemp.?/hwmon/hwmon?/temp?_label
 -- The path in which the 'Package id 0' is found will be the hint to the .../tempX_input file
 local temp = lain.widget.temp({
-    tempfile = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input",
+    tempfile = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input",
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. coretemp_now .. "°C "))
     end

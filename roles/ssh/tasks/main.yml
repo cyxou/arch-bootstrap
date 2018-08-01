@@ -2,6 +2,7 @@
   pacman:
     name: openssh
     state: present
+  become: yes
 
 - name: Make directory for user SSH key
   file:

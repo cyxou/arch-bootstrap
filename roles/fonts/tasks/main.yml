@@ -3,6 +3,7 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ base_fonts }}"
+  become: yes
 
 - name: Install AUR fonts
   aur:

@@ -17,5 +17,4 @@
     groups: docker
     append: yes
     state: present
-  become_user: "{{ ansible_user_id }}"
   become: yes
