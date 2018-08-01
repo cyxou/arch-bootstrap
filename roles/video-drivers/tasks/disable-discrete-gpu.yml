@@ -11,7 +11,7 @@
 #
 #- name: Install acpi_call package
 #  pacman:
-#    name: acpi_call-dkms
+#    name: acpi_call
 #    state: present
 #  become: yes
 #
@@ -31,18 +31,20 @@
 # Disable descrete GPU with the bbswitch method
 - name: Install bbswitch package
   pacman:
-    name: bbswitch-dkms
+    name: bbswitch
     state: present
   become: yes
 
-- name: Copy bbswitch.conf
-  copy:
-    src: "{{ wsl_bootstrap_home }}/roles/configure/files/bbswitch.conf"
-    dest: "/etc/modprobe.d/bbswitch.conf"
-  become: yes
+# This is needed only if disabling GPU without bumblebee installed
+#- name: Copy bbswitch.conf
+#  copy:
+#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/bbswitch.conf"
+#    dest: "/etc/modprobe.d/bbswitch.conf"
+#  become: yes
 
-- name: Load bbswitch on boot
-  copy:
-    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_bbswitch.conf"
-    dest: "/etc/modules-load.d/bbswitch.conf"
-  become: yes
+# This is needed only if disabling GPU without bumblebee installed
+#- name: Load bbswitch on boot
+#  copy:
+#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_bbswitch.conf"
+#    dest: "/etc/modules-load.d/bbswitch.conf"
+#  become: yes

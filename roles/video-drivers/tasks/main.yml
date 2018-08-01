@@ -1,0 +1,24 @@
+- name: Install bumblebee
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - bumblebee
+      - mesa
+  become: yes
+
+- name: Adding current user to group bumblebee
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: bumblebee
+    append: yes
+    state: present
+  become: yes
+
+- name: Enable bumblebeed.service
+  systemd:
+    name: bumblebeed.service
+    enabled: yes
+  become: yes
+
+- include: disable-discrete-gpu.yml

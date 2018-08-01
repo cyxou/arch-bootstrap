@@ -8,3 +8,10 @@
   systemd:
     name: lxdm.service
     enabled: yes
+  become: yes
+
+- name: Copy lxdm.conf
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/lxdm/files/lxdm.conf"
+    dest: /etc/lxdm/lxdm.conf
+  become: yes

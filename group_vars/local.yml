@@ -41,6 +41,7 @@ base_packages:
   - python-setuptools
   - alsa-utils
   - gopass
+  - pcmanfm
 
 xorg_packages:
   - xorg-server

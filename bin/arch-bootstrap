@@ -1,0 +1,3 @@
+echo "Setting up your Arch Linux..."
+DIR=$(dirname "$(readlink -f "$0")")
+ansible-playbook -i ${DIR}/../hosts  ${DIR}/../arch-playbook.yml -K

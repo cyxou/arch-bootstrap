@@ -1,0 +1,20 @@
+# https://wiki.archlinux.org/index.php/Powertop
+- name: Install and configure powertop
+  become: yes
+  block:
+    - name: Install powertop
+      pacman:
+        name: powertop
+        state: present
+
+    - name: Copy powertop.service
+      copy:
+        src: "{{ wsl_bootstrap_home }}/roles/power-saving/files/powertop.service"
+        dest: /etc/systemd/system/powertop.service
+
+    - name: Enable powertop.service
+      systemd:
+        name: powertop.service
+        enabled: yes
+        state: started
+

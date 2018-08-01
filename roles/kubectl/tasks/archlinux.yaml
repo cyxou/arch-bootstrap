@@ -1,0 +1,6 @@
+- name: Install kubectl from AUR
+  aur:
+    name: kubectl-bin
+    skip_installed: yes
+  become: yes
+  become_user: aur_builder

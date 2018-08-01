@@ -4,7 +4,7 @@
     state: present
   with_items:
     - virtualbox
-    - virtualbox-host-modules-dkms
+    - virtualbox-host-modules-arch
     - virtualbox-guest-utils
-    - virtualbox-guest-dkms
+    - virtualbox-guest-modules-arch
   become: yes

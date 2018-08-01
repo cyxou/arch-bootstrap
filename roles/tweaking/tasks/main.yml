@@ -1,5 +1,3 @@
-- include: power-saving.yml
 - include: power-button.yml
-- include: disable-discrete-gpu.yml
 - include: nvme.yml
 - include: disable-bluetooth.yml

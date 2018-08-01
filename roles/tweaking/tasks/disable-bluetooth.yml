@@ -1,5 +1,5 @@
 - name: Blacklist bluetooth via modprobe
   copy:
-    src: "{{ wsl_bootstrap_home }}/roles/configure/files/blacklist-bluetooth.conf"
+    src: "{{ wsl_bootstrap_home }}/roles/tweaking/files/blacklist-bluetooth.conf"
     dest: "/etc/modprobe.d/blacklist-bluetooth.conf"
   become: yes
