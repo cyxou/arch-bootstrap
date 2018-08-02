@@ -229,14 +229,30 @@ theme.fs = lain.widget.fs({
 })
 
 -- Battery
+-- Set battery percentage color to red if charge is low.
+function getBatArrowColor(batPerc)
+  if tonumber(batPerc) <= 100 and tonumber(batPerc) > 75 then
+    return "#99C794"
+  elseif tonumber(batPerc) <= 75 and tonumber(batPerc) > 50 then
+    return "#6CB25B"
+  elseif tonumber(batPerc) <= 50 and tonumber(batPerc) > 25 then
+    return "#FFC857"
+  elseif tonumber(batPerc) <= 25 and tonumber(batPerc) > 10 then
+    return "#FE9920"
+  elseif tonumber(batPerc) <= 10 then
+    return "#EC5f67"
+  else
+    return "#4B696D"
+  end
+end
 local baticon = wibox.widget.imagebox(theme.widget_battery)
-local batPerc
+local batArrowColor
 local bat = lain.widget.bat({
     ac = "AC",
     battery = "BAT0",
     settings = function()
-        batPerc = bat_now.perc
         if bat_now.status and bat_now.status ~= "N/A" then
+            batArrowColor = getBatArrowColor(bat_now.perc)
             if bat_now.ac_status == 1 then
                 widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " AC " .. bat_now.perc .. "% ")))
                 baticon:set_image(theme.widget_battery_charging)
@@ -265,22 +281,6 @@ local bat = lain.widget.bat({
         end
     end
 })
--- Set battery percentage color to red if charge is low.
-bat.color = function()
-  if tonumber(bat_now.perc) <= 100 and tonumber(bat_now.perc) > 75 then
-    return "#99C794"
-  elseif tonumber(bat_now.perc) <= 75 and tonumber(bat_now.perc) > 50 then
-    return "#6CB25B"
-  elseif tonumber(bat_now.perc) <= 50 and tonumber(bat_now.perc) > 25 then
-    return "#FFC857"
-  elseif tonumber(bat_now.perc) <= 25 and tonumber(bat_now.perc) > 10 then
-    return "#FE9920"
-  elseif tonumber(bat_now.perc) <= 10 then
-    return "#EC5f67"
-  else
-    return "#4B696D"
-  end
-end
 
 -- ALSA volume bar
 theme.volume = lain.widget.alsabar({
@@ -426,9 +426,9 @@ function theme.at_screen_connect(s)
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
             wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrow(theme.bg_focus, bat.color()),
-            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), bat.color()),
-            arrow(bat.color(), "#4B3B51"),
+            arrow(theme.bg_focus, batArrowColor),
+            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), batArrowColor),
+            arrow(batArrowColor, "#4B3B51"),
             wibox.container.background(wibox.container.margin(wibox.widget { kbdcfg.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#4B3B51"),
             arrow("#4B3B51", theme.bg_normal),
             --arrl_ld,
