@@ -238,7 +238,7 @@ local bat = lain.widget.bat({
         batPerc = bat_now.perc
         if bat_now.status and bat_now.status ~= "N/A" then
             if bat_now.ac_status == 1 then
-                widget:set_markup(markup.font(theme.font, " AC "))
+                widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " AC " .. bat_now.perc .. "% ")))
                 baticon:set_image(theme.widget_battery_charging)
                return
             elseif bat_now.perc and tonumber(bat_now.perc) <= 5 then
