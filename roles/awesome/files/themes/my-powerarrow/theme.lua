@@ -123,8 +123,8 @@ theme.cal = lain.widget.calendar({
 })
 
 -- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
----[[ commented because it needs to be set before use
+--local mailicon = wibox.widget.imagebox(theme.widget_mail)
+--[[
 mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
 local mail = lain.widget.imap({
     is_plain = false,
@@ -153,7 +153,7 @@ local mail = lain.widget.imap({
         end
     end
 })
----]]
+--]]
 
 -- MPD
 local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
@@ -336,17 +336,19 @@ kbdcfg.widget:buttons(
 
 
 -- Net
-local neticon = wibox.widget.imagebox(theme.widget_net)
+local neticon = wibox.widget.imagebox(theme.widget_net_off)
 local net = lain.widget.net({
     iface = "wlp59s0",
     settings = function()
         if net_now.state == "up" then
+            neticon:set_image(theme.widget_net)
             widget:set_markup(markup.font(theme.font,
                               markup("#7AC82E", " " .. net_now.received)
                               .. " " ..
                               markup("#46A8C3", " " .. net_now.sent .. " ")))
         else
-            local neticon = wibox.widget.imagebox(theme.widget_net_off)
+            neticon:set_image(theme.widget_net_off)
+            widget:set_markup(markup.font(theme.font, " Off"))
         end
     end
 })
