@@ -243,15 +243,16 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 "set statusline+=%{fugitive#statusline()}
 
-let g:syntastic_javascript_checkers = ['jshint']
-"let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_open=1
 let g:Syntastic_enable_signs=1
 
 " Typescript support via tsuquyomi. You shouldn't use 'tsc' checker."
 let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
+"let g:syntastic_typescript_checkers = ['tsuquyomi']
+let g:syntastic_typescript_checkers = ['tslint']
 
 " Explore tweaking
 let g:netrw_banner = 0
@@ -366,7 +367,7 @@ vmap <silent> <Leader>Y Y:call Session_yank()<CR>
 nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
 
-" Copy selection to xclip 
+" Copy selection to xclip
 vmap "*y :!xclip -f -sel clip
 map "*p :r!xclip -o -sel clip
 
