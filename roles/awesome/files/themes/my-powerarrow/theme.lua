@@ -26,14 +26,18 @@ theme.fg_normal                                 = "#DDDDFF"
 theme.fg_normal_inv                             = "#1B2B34"
 theme.fg_focus                                  = "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
-theme.bg_normal                                 = "#1A1A1A"
+theme.bg_normal                                 = "#313131"
 theme.bg_focus                                  = "#313131"
-theme.bg_urgent                                 = "#1A1A1A"
+theme.bg_urgent                                 = "#313131"
 theme.border_width                              = 1
 theme.border_normal                             = "#3F3F3F"
 theme.border_focus                              = "#7F7F7F"
 theme.border_marked                             = "#CC9393"
 theme.tasklist_bg_focus                         = "#1A1A1A"
+theme.arrow_col1                                = "#3F3E3F"
+theme.arrow_col2                                = "#6A66A3"
+theme.arrow_col3                                = "#542E71"
+theme.arrow_col4                                = "#535253"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
 theme.titlebar_fg_focus                         = theme.fg_focus
@@ -230,29 +234,32 @@ theme.fs = lain.widget.fs({
 
 -- Battery
 -- Set battery percentage color to red if charge is low.
-function getBatArrowColor(batPerc)
+local batArrowColor
+function setBatArrowColor(batPerc)
   if tonumber(batPerc) <= 100 and tonumber(batPerc) > 75 then
-    return "#99C794"
+    batArrowColor = "#99C794"
   elseif tonumber(batPerc) <= 75 and tonumber(batPerc) > 50 then
-    return "#6CB25B"
+    batArrowColor = "#6CB25B"
   elseif tonumber(batPerc) <= 50 and tonumber(batPerc) > 25 then
-    return "#FFC857"
+    batArrowColor = "#FFC857"
   elseif tonumber(batPerc) <= 25 and tonumber(batPerc) > 10 then
-    return "#FE9920"
+    batArrowColor = "#FE9920"
   elseif tonumber(batPerc) <= 10 then
-    return "#EC5f67"
+    batArrowColor = "#EC5f67"
   else
-    return "#4B696D"
+    batArrowColor = "#4B696D"
   end
 end
-local baticon = wibox.widget.imagebox(theme.widget_battery)
-local batArrowColor
+function getBatArrowColor()
+  return batArrowColor
+end
+local baticon = wibox.widget.imagebox(theme.widget_battery_full)
 local bat = lain.widget.bat({
     ac = "AC",
     battery = "BAT0",
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
-            batArrowColor = getBatArrowColor(bat_now.perc)
+            setBatArrowColor(bat_now.perc)
             if bat_now.ac_status == 1 then
                 widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " AC " .. bat_now.perc .. "% ")))
                 baticon:set_image(theme.widget_battery_charging)
@@ -355,9 +362,10 @@ local net = lain.widget.net({
 
 -- Separators
 local spr     = wibox.widget.textbox(' ')
-local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
-local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+local arrl_dl = separators.arrow_left(theme.bg_normal, "alpha")
+local arrl_ld = separators.arrow_left("alpha", theme.bg_normal)
 local arrow   = separators.arrow_left
+local arrow_r = separators.arrow_right
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -375,7 +383,9 @@ function theme.at_screen_connect(s)
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
+    s.mypromptbox = awful.widget.prompt({
+        bg = theme.arrow_col1
+    })
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -385,10 +395,19 @@ function theme.at_screen_connect(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
+    s.mytaglist = awful.widget.taglist(s,
+      awful.widget.taglist.filter.all,
+      awful.util.taglist_buttons, {
+        bg_focus = theme.arrow_col4
+      })
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
+    s.mytasklist = awful.widget.tasklist(s,
+      awful.widget.tasklist.filter.currenttags,
+      awful.util.tasklist_buttons, {
+        bg_normal = theme.bg_normal,
+        bg_focus = theme.bg_focus
+      })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 18, bg = theme.bg_normal, fg = theme.fg_normal })
@@ -399,8 +418,13 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --spr,
-            s.mytaglist,
-            s.mypromptbox,
+            --s.mytaglist,
+            --s.mypromptbox,
+            arrow_r(theme.bg_focus, theme.arrow_col4),
+            wibox.container.background(wibox.container.margin(wibox.widget { s.mytaglist, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col4),
+            arrow_r(theme.arrow_col4, theme.arrow_col1),
+            wibox.container.background(wibox.container.margin(wibox.widget { s.mypromptbox, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col1),
+            arrow_r(theme.arrow_col1, theme.bg_focus),
             spr,
         },
         s.mytasklist, -- Middle widget
@@ -409,13 +433,15 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             spr,
             arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
             arrl_dl,
-            volumewidget,
             arrl_ld,
-            wibox.container.background(mailicon, theme.bg_focus),
-            wibox.container.background(mail.widget, theme.bg_focus),
+            arrl_dl,
+            neticon,
+            net.widget,
+            arrl_ld,
+            wibox.container.background(volumewidget, theme.bg_focus),
+            --wibox.container.background(mailicon, theme.bg_focus),
+            --wibox.container.background(mail.widget, theme.bg_focus),
             arrl_dl,
             memicon,
             mem.widget,
@@ -428,11 +454,11 @@ function theme.at_screen_connect(s)
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
             wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrow(theme.bg_focus, batArrowColor),
-            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), batArrowColor),
-            arrow(batArrowColor, "#4B3B51"),
-            wibox.container.background(wibox.container.margin(wibox.widget { kbdcfg.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#4B3B51"),
-            arrow("#4B3B51", theme.bg_normal),
+            arrow(theme.bg_focus, getBatArrowColor()),
+            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), getBatArrowColor()),
+            arrow(getBatArrowColor(), theme.arrow_col2),
+            wibox.container.background(wibox.container.margin(wibox.widget { kbdcfg.widget, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col2),
+            arrow(theme.arrow_col2, theme.bg_normal),
             --arrl_ld,
             --wibox.container.background(kbdcfg.widget, theme.bg_focus),
             --arrl_dl,
