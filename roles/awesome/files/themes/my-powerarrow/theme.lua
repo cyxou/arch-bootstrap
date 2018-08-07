@@ -217,7 +217,7 @@ local tempicon = wibox.widget.imagebox(theme.widget_temp)
 -- grep "" /sys/devices/platform/coretemp.?/hwmon/hwmon?/temp?_label
 -- The path in which the 'Package id 0' is found will be the hint to the .../tempX_input file
 local temp = lain.widget.temp({
-    tempfile = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input",
+    tempfile = "/sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input",
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. coretemp_now .. "°C "))
     end
@@ -458,13 +458,9 @@ function theme.at_screen_connect(s)
             wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), getBatArrowColor()),
             arrow(getBatArrowColor(), theme.arrow_col2),
             wibox.container.background(wibox.container.margin(wibox.widget { kbdcfg.widget, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col2),
-            arrow(theme.arrow_col2, theme.bg_normal),
-            --arrl_ld,
-            --wibox.container.background(kbdcfg.widget, theme.bg_focus),
-            --arrl_dl,
-            clock,
-            spr,
-            arrl_ld,
+            arrow(theme.arrow_col2, theme.arrow_col4),
+            wibox.container.background(wibox.container.margin(wibox.widget { clock, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col4),
+            arrow(theme.arrow_col4, theme.bg_normal),
             wibox.container.background(s.mylayoutbox, theme.bg_focus),
         },
     }
