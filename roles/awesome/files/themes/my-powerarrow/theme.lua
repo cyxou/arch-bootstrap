@@ -36,7 +36,7 @@ theme.border_marked                             = "#CC9393"
 theme.tasklist_bg_focus                         = "#1A1A1A"
 theme.arrow_col1                                = "#3F3E3F"
 theme.arrow_col2                                = "#6A66A3"
-theme.arrow_col3                                = "#542E71"
+theme.arrow_col3                                = "#50808E"
 theme.arrow_col4                                = "#535253"
 theme.titlebar_bg_focus                         = theme.bg_focus
 theme.titlebar_bg_normal                        = theme.bg_normal
@@ -60,14 +60,14 @@ theme.layout_magnifier                          = theme.dir .. "/icons/magnifier
 theme.layout_floating                           = theme.dir .. "/icons/floating.png"
 theme.widget_ac                                 = theme.dir .. "/icons/ac.png"
 theme.widget_battery_full                       = theme.dir .. "/icons/baseline-battery_full-24px.svg"
-theme.widget_battery_20                         = theme.dir .. "/icons/baseline-battery_20-24px.svg"
-theme.widget_battery_30                         = theme.dir .. "/icons/baseline-battery_30-24px.svg"
-theme.widget_battery_50                         = theme.dir .. "/icons/baseline-battery_50-24px.svg"
-theme.widget_battery_60                         = theme.dir .. "/icons/baseline-battery_60-24px.svg"
-theme.widget_battery_80                         = theme.dir .. "/icons/baseline-battery_80-24px.svg"
-theme.widget_battery_90                         = theme.dir .. "/icons/baseline-battery_90-24px.svg"
-theme.widget_battery_alert                      = theme.dir .. "/icons/baseline-battery_alert-24px.svg"
-theme.widget_battery_charging                   = theme.dir .. "/icons/baseline-battery_charging_full-24px.svg"
+theme.widget_battery_20                         = theme.dir .. "/icons/baseline-battery_20-24px_white.svg"
+theme.widget_battery_30                         = theme.dir .. "/icons/baseline-battery_30-24px_white.svg"
+theme.widget_battery_50                         = theme.dir .. "/icons/baseline-battery_50-24px_white.svg"
+theme.widget_battery_60                         = theme.dir .. "/icons/baseline-battery_60-24px_white.svg"
+theme.widget_battery_80                         = theme.dir .. "/icons/baseline-battery_80-24px_white.svg"
+theme.widget_battery_90                         = theme.dir .. "/icons/baseline-battery_90-24px_white.svg"
+theme.widget_battery_alert                      = theme.dir .. "/icons/baseline-battery_alert-24px_white.svg"
+theme.widget_battery_charging                   = theme.dir .. "/icons/baseline-battery_charging_full-24px_white.svg"
 theme.widget_mem                                = theme.dir .. "/icons/baseline-memory-24px.svg"
 theme.widget_cpu                                = theme.dir .. "/icons/microchip-solid.svg"
 theme.widget_temp                               = theme.dir .. "/icons/thermometer-solid.svg"
@@ -160,6 +160,7 @@ local mail = lain.widget.imap({
 --]]
 
 -- MPD
+--[[
 local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
 mpdicon:buttons(my_table.join(
@@ -194,6 +195,7 @@ theme.mpd = lain.widget.mpd({
         widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
     end
 })
+--]]
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -261,9 +263,9 @@ local bat = lain.widget.bat({
         if bat_now.status and bat_now.status ~= "N/A" then
             setBatArrowColor(bat_now.perc)
             if bat_now.ac_status == 1 then
-                widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " AC " .. bat_now.perc .. "% ")))
+                widget:set_markup(markup.font(theme.font, " AC " .. bat_now.perc .. "% "))
                 baticon:set_image(theme.widget_battery_charging)
-               return
+                return
             elseif bat_now.perc and tonumber(bat_now.perc) <= 5 then
                 baticon:set_image(theme.widget_battery_alert)
             elseif bat_now.perc and tonumber(bat_now.perc) <= 20 then
@@ -281,7 +283,8 @@ local bat = lain.widget.bat({
             else
                 baticon:set_image(theme.widget_battery_full)
             end
-            widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " " .. bat_now.perc .. "% ")))
+            --widget:set_markup(markup(theme.fg_normal_inv, markup.font(theme.font, " " .. bat_now.perc .. "% ")))
+            widget:set_markup(markup.font(theme.font, " " .. bat_now.perc .. "% "))
         else
             widget:set_markup(markup.font(theme.font, " AC "))
             baticon:set_image(theme.widget_battery_charging)
@@ -454,9 +457,9 @@ function theme.at_screen_connect(s)
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
             wibox.container.background(theme.fs.widget, theme.bg_focus),
-            arrow(theme.bg_focus, getBatArrowColor()),
-            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), getBatArrowColor()),
-            arrow(getBatArrowColor(), theme.arrow_col2),
+            arrow(theme.bg_focus, theme.arrow_col3),
+            wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col3),
+            arrow(theme.arrow_col3, theme.arrow_col2),
             wibox.container.background(wibox.container.margin(wibox.widget { kbdcfg.widget, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col2),
             arrow(theme.arrow_col2, theme.arrow_col4),
             wibox.container.background(wibox.container.margin(wibox.widget { clock, layout = wibox.layout.align.horizontal }, 3, 3), theme.arrow_col4),
