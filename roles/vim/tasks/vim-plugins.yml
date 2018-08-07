@@ -12,8 +12,11 @@
 
     - name: Install build dependencies
       pacman:
-        name: cmake
+        name: "{{ item }}"
         state: present
+      with_items:
+        - cmake
+        - gcc
       become: yes
 
     - name: Create the 'builds' directory
