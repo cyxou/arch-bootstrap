@@ -148,6 +148,3 @@ fi
 # Configure npm to stop asksing about root permissions
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
-
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
