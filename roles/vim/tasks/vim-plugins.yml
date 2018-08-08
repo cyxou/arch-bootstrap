@@ -39,3 +39,11 @@
   npm:
     path: "{{wsl_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/tern_runtime"
   when: pluginsInstalled is succeeded
+
+- name: Install UltiSnips
+  file:
+    src: "{{ wsl_bootstrap_home }}/roles/vim/files/UltiSnips"
+    dest: "{{ wsl_bootstrap_user_home }}/.vim/UltiSnips"
+    state: link
+    force: yes
+  when: pluginsInstalled is succeeded
