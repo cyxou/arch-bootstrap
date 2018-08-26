@@ -42,6 +42,7 @@ base_packages:
   - alsa-utils
   - gopass
   - pcmanfm
+  - httpie
 
 xorg_packages:
   - xorg-server
