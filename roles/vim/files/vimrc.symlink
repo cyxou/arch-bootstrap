@@ -34,17 +34,21 @@ Plugin 'heavenshell/vim-jsdoc'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'mhinz/vim-startify'
 Plugin 'mileszs/ack.vim'
-Plugin 'pangloss/vim-javascript'
 Plugin 'raimondi/delimitMate'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'sirver/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'stephpy/vim-yaml'
+
+" JavaScript
 Plugin 'ternjs/tern_for_vim'
+Plugin 'pangloss/vim-javascript'
+
+" TypeScript
 Plugin 'quramy/tsuquyomi'
+Plugin 'leafgarland/typescript-vim'
+
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
@@ -53,9 +57,12 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-scripts/git-file.vim'
+
+" Theming
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-scripts/git-file.vim'
 Plugin 'ryanoasis/vim-devicons' " vim-devicons should be the last loaded plugin
 
 " All of your Plugins must be added before the following line
@@ -247,12 +254,25 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 let g:Syntastic_enable_signs=1
+let g:syntastic_enable_balloons=0
+" Make syntastic errors highlighting more readable by assigning it to Error highlighting grop
+" see more options with :highlight
+highlight link SyntasticError Error
 
-" Typescript support via tsuquyomi. You shouldn't use 'tsc' checker."
 let g:tsuquyomi_disable_quickfix = 1
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_disable_default_mappings = 1
+" Typescript support via tsuquyomi. You shouldn't use 'tsc' checker."
 "let g:syntastic_typescript_checkers = ['tsuquyomi']
 let g:syntastic_typescript_checkers = ['tslint']
+
+" Show tooltip for an object under the cursor
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+
+" Go to definition
+nnoremap <leader>gd :TsuDefinition<CR>
 
 " Explore tweaking
 let g:netrw_banner = 0
@@ -323,6 +343,7 @@ let g:vim_json_syntax_conceal = 0
 
 " JsDoc syntax highlighting
 au! BufRead,BufNewFile *.jsdoc set syntax=javascript
+let g:javascript_plugin_jsdoc = 1
 
 " Autodelete fugitive hidden buffers
 au! BufReadPost fugitive://* set bufhidden=delete

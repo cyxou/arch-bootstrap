@@ -124,7 +124,7 @@ export EDITOR='vim'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Add nvm installed with yaourt
-source /usr/share/nvm/init-nvm.sh
+#source /usr/share/nvm/init-nvm.sh
 
 # This is needed for viewing pictures in terminal with fim
 export FBFONT="/usr/share/kbd/consolefonts/ter-216n.psf.gz"
