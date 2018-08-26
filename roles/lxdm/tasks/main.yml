@@ -4,6 +4,10 @@
     state: present
   become: yes
 
+- name: Install lxdm themes
+  aur:
+    name: lxdm-themes
+
 - name: Enable lxdm.service
   systemd:
     name: lxdm.service
