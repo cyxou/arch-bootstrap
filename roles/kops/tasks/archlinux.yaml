@@ -1,0 +1,6 @@
+- name: Install kops from AUR
+  aur:
+    name: kops-bin
+    skip_installed: yes
+  become: yes
+  become_user: aur_builder
