@@ -648,9 +648,9 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },
 
-    -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[1] } },
+    -- Set GetBot to always map on the second tag on screen 1.
+    { rule = { class = "GetBot" },
+      properties = { screen = 1, tag = awful.util.tagnames[2] } },
 
     -- Set Chromium to always start on screen 3 in normal mode (by default it is maximized).
     { rule = { class = "Chromium" },
