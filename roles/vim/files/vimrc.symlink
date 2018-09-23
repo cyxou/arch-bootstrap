@@ -250,6 +250,7 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 "set statusline+=%{fugitive#statusline()}
 
+let g:syntastic_html_checkers = ['htmlhint']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:syntastic_always_populate_loc_list=1
@@ -438,6 +439,8 @@ nnoremap <Leader>a :Ack! --ignore-dir=coverage --ignore-dir=build --ignore-dir=p
 " UltiSnips config
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 

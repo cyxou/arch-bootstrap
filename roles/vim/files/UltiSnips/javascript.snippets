@@ -1,3 +1,774 @@
+priority -50
+
 snippet clog "console.log()" b
 console.log('${1:ALOHA}: ', $1);
+endsnippet
+
+snippet ff "Anonymous function" w
+function (${1}) {
+	${2}
+}${3}
+endsnippet
+
+snippet f "Arrow function" w
+(${1}) => {
+	${2}
+}${3}
+endsnippet
+
+snippet f- "Arrow function (just value)" w
+(${1}) => ${2:foo}
+endsnippet
+
+snippet f-- "Arrow function (just prefix)" w
+(${1}) => ${2}
+endsnippet
+
+snippet fi "Inline anonymous function" w
+function (${1}) { ${2} }${3}
+endsnippet
+
+snippet fnn "Named function" w
+function ${1:foo}(${2}) {
+	${3}
+}${4}
+endsnippet
+
+snippet fn "Named arrow function" w
+const ${1:foo} = (${2}) => {
+	${3}
+};${4}
+endsnippet
+
+snippet fn- "Named arrow function (just value)" w
+const ${1:foo} = (${2}) => ${3:foo};
+endsnippet
+
+snippet fcc "Clojure function" i
+(function (${2}) {
+	${1}
+})(${3})${4}
+endsnippet
+
+snippet fc "Clojure arrow function" i
+((${2}) => {
+	${1}
+})(${3})${4}
+endsnippet
+
+snippet fc- "Clojure arrow function (just value)" i
+((${2}) => ${1})(${3})${4}
+endsnippet
+
+snippet af "Async arrow function" w
+async (${1}) => {
+	${2}
+}${3}
+endsnippet
+
+snippet af- "Async arrow function (just value)" w
+async (${1}) => ${2:foo}
+endsnippet
+
+snippet af-- "Async arrow function (just prefix)" w
+async (${1}) => ${2}
+endsnippet
+
+snippet aff "Async anonymous function" w
+async function (${1}) {
+	${2}
+}${3}
+endsnippet
+
+snippet afn "Async named arrow function" w
+const ${1:foo} = async (${2}) => {
+	${3}
+}${4}
+endsnippet
+
+snippet afnn "Async named function" w
+async function ${1:foo}(${2}) {
+	${3}
+}${4}
+endsnippet
+
+snippet aw "Await" i
+await ${1:foo};
+endsnippet
+
+snippet aw- "Await (just prefix)" i
+await ${1}
+endsnippet
+
+snippet g "Anonymous generator" w
+function* (${2}) {
+	${1}
+}${3}
+endsnippet
+
+snippet gn "Named generator" w
+function* ${1:foo}(${3}) {
+	${2}
+}${4}
+endsnippet
+
+snippet if "if condition" i
+if (${1}) {
+	${2}
+}
+endsnippet
+
+snippet ife "if/else condition" i
+if (${1}) {
+	${2}
+} else {
+	${3}
+}
+endsnippet
+
+snippet else "else condition continuation" i
+else {
+	${1}
+}
+endsnippet
+
+snippet iffe "if/else if/else condition" i
+if (${1}) {
+	${2}
+} else if (${3}) {
+	${4}
+} else {
+	${5}
+}
+endsnippet
+
+snippet elif "else if condition continuation" i
+else if (${1}) {
+	${2}
+}
+endsnippet
+
+snippet elifn "else if inverted condition continuation" i
+else if ( ! ${1}) {
+	${2}
+}
+endsnippet
+
+snippet elifn. "else if inverted condition continuation with brackets" i
+else if ( ! (${1})) {
+	${2}
+}
+endsnippet
+
+snippet ifn "if inverted condition" i
+if ( ! ${1}) {
+	${2}
+}
+endsnippet
+
+snippet ifn. "if inverted condition with brackets" i
+if ( ! (${1})) {
+	${2}
+}
+endsnippet
+
+snippet ifne "if/else inverted condition" i
+if ( ! ${1}) {
+	${2}
+} else {
+	${3}
+}
+endsnippet
+
+snippet ifne. "if/else inverted condition with brackets" i
+if ( ! (${1})) {
+	${2}
+} else {
+	${3}
+}
+endsnippet
+
+snippet = "is equal" w
+=== ${1}
+endsnippet
+snippet / "not equal" w
+!== ${1}
+endsnippet
+
+snippet -o "Simple key-value object" i
+{ ${1}: ${2} }${3}
+endsnippet
+snippet -od "Simple key-value object (with dynamic key)" i
+{ [${1:k}]: ${2:v} }${3}
+endsnippet
+
+snippet .ee "List each method" i
+.forEach(function (${1:item}) {
+	${2}
+})${3}
+endsnippet
+snippet .e "List each method (arrow function)" i
+.forEach(${1:item} => {
+	${2}
+})${3}
+endsnippet
+snippet .e- "List each method (arrow function, just value)" i
+.forEach(${1:item} => ${2:item})${3}
+endsnippet
+
+snippet .mm "List map method" i
+.map(function (${1:item}) {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .m "List map method (arrow function)" i
+.map(${1:item} => {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .m- "List map method (arrow function, just value)" i
+.map(${1:item} => ${2:item})${3}
+endsnippet
+
+snippet .rr "List reduce method" i
+.reduce(function (${1:prev}, ${2:next}) {
+	return ${3:prev} + ${4:next};
+})${5}
+endsnippet
+snippet .r "List reduce method (arrow function)" i
+.reduce((${1:prev}, ${2:next}) => {
+	return ${3:prev} + ${4:next};
+})${5}
+endsnippet
+snippet .r- "List reduce method (arrow function, just value)" i
+.reduce((${1:prev}, ${2:next}) => ${3:prev} + ${4:next})${5}
+endsnippet
+
+snippet .RR "List reduce right method" i
+.reduceRight(function (${1:prev}, ${2:next}) {
+	return ${3:prev} + ${4:next};
+})${5}
+endsnippet
+snippet .R "List reduce right method (arrow function)" i
+.reduceRight((${1:prev}, ${2:next}) => {
+	return ${3:prev} + ${4:next};
+})${5}
+endsnippet
+snippet .R- "List reduce right method (arrow function, just value)" i
+.reduceRight((${1:prev}, ${2:next}) => ${3:prev} + ${4:next})${5}
+endsnippet
+
+snippet .roo "Reduce to object method" i
+.reduce(function (${1:obj}, ${2:item}) {
+	${3}
+	return ${4:obj};
+}, {})${5}
+endsnippet
+snippet .ro "Reduce to object method (arrow function)" i
+.reduce((${1:obj}, ${2:item}) => {
+	${3}
+	return ${4:obj};
+}, {})${5}
+endsnippet
+snippet .ro- "Reduce to object method (arrow function, just value)" i
+.reduce((${1:obj}, ${2:item}) => ${3:obj}, {})${4}
+endsnippet
+
+snippet .raa "Reduce to new list method" i
+.reduce(function (${1:result}, ${2:item}) {
+	return ${3:result}.concat([${4:item}]);
+}, ${5:[]})${6}
+endsnippet
+snippet .ra "Reduce to new list method (arrow function)" i
+.reduce((${1:result}, ${2:item}) => {
+	return ${3:result}.concat([${4:item}]);
+}, ${5:[]})${6}
+endsnippet
+snippet .ra- "Reduce to new list method (arrow function, just value)" i
+.reduce((${1:result}, ${2:item}) => ${3:result}.concat([${4:item}]), ${5:[]})${6}
+endsnippet
+
+snippet .rv "List reverse method" i
+.reverse()
+endsnippet
+
+snippet .smm ".some() list method" i
+.some(function (${1:item}) {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .sm ".some() list method (arrow function)" i
+.some(${1:item} => {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .sm- ".some() list method (arrow function, just value)" i
+.some(${1:item} => ${2:item})${3}
+endsnippet
+
+snippet .evv ".every() list method" i
+.every(function (${1:item}) {
+	return ${2:item};
+})${4}
+endsnippet
+snippet .ev ".every() list method (arrow function)" i
+.every(${1:item} => {
+	return ${2:item};
+})${4}
+endsnippet
+snippet .ev- ".every() list method (arrow function, just value)" i
+.every(${1:item} => ${2:item})${4}
+endsnippet
+
+snippet .fll "List filter method" i
+.filter(function (${1:item}) {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .fl "List filter method (arrow function)" i
+.filter(${1:item} => {
+	return ${2:item};
+})${3}
+endsnippet
+snippet .fl- "List filter method (arrow function, just value)" i
+.filter(${1:item} => ${2:item})${3}
+endsnippet
+
+snippet +. "Push to list method" i
+.push(${1})${2}
+endsnippet
+
+snippet ++ "List concat method" i
+.concat(${1:[]})${2}
+endsnippet
+
+snippet .sp "Splice method" i
+.splice(${1:0}, ${2:1})${3}
+endsnippet
+
+snippet .iof "Index of method" i
+.indexOf(${1})${2}
+endsnippet
+
+
+snippet .ts "To string method" i
+.toString()
+endsnippet
+
+snippet .ca "Char at string method" i
+.charAt(${1})${2}
+endsnippet
+
+snippet .tlc "Lower case string method" i
+.toLowerCase()
+endsnippet
+
+snippet .tuc "Upper case string method" i
+.toUpperCase()
+endsnippet
+
+snippet .t "Trim string method" i
+.trim()
+endsnippet
+
+snippet .hop "Check for has own property method" i
+.hasOwnProperty(${1:foo})${2}
+endsnippet
+
+
+snippet . "Spread operator" i
+...
+endsnippet
+
+snippet ., "Call method" i
+.${1}(${2})${3}
+endsnippet
+
+snippet .a "Function delegate method (using .apply)" i
+.apply(${1:this}, ${2:arguments})${3}
+endsnippet
+
+snippet .= "Function call with context" i
+.call(${1:this}${2})${3}
+endsnippet
+
+snippet .b "Bind method" i
+.bind(${1:this}${2})${3}
+endsnippet
+
+
+snippet ok "Get keys list of hash" i
+Object.keys(${1:foo})${2}
+endsnippet
+
+snippet oc "Create hash" i
+Object.create(${1:null})${2}
+endsnippet
+
+snippet ofz "Create expanded frozen hash" i
+Object.freeze({
+	${1}
+})${2}
+endsnippet
+
+snippet ofz- "Create frozen hash" i
+Object.freeze(${1:\{\}})${2}
+endsnippet
+
+snippet oa "Object assign" i
+Object.assign(${1:foo}, ${2:bar})${3}
+endsnippet
+
+snippet oac "Object clone via assign" i
+Object.assign({}, ${1:foo})${2}
+endsnippet
+
+
+snippet isa "Check if it's array" i
+Array.isArray(${1})${2}
+endsnippet
+
+
+snippet io "Something is instance of something" i
+${1} instanceof ${2:Object}
+endsnippet
+
+snippet io- "Something instance of" i
+instanceof ${2}
+endsnippet
+
+
+snippet too "setTimeout (async hack)" i
+setTimeout(function () {
+	${1}
+}, ${2:0});${3}
+endsnippet
+snippet to "setTimeout (async hack) (arrow function)" i
+setTimeout(() => {
+	${1}
+}, ${2:0});${3}
+endsnippet
+snippet to- "setTimeout (async hack) (arrow function, just value)" i
+setTimeout(() => ${1:foo}, ${2:0});${3}
+endsnippet
+
+snippet nt "Async call (node.js)" i
+process.nextTick(${1:foo});${2}
+endsnippet
+
+snippet ntff "Async wrap (node.js)" i
+process.nextTick(function () {
+	${1}
+});${2}
+endsnippet
+snippet ntf "Async wrap (node.js) (arrow function)" i
+process.nextTick(() => {
+	${1}
+});${2}
+endsnippet
+snippet ntf- "Async wrap (node.js) (arrow function, just value)" i
+process.nextTick(() => ${1:foo});${2}
+endsnippet
+
+snippet dn "Current unix-time seconds" i
+Date.now()
+endsnippet
+
+snippet nd "New instance of Date object" i
+new Date()
+endsnippet
+
+
+snippet npp "New Promise wrapper" i
+new Promise(function (resolve, reject) {
+	${1}
+})${2}
+endsnippet
+
+snippet np "New Promise wrapper (arrow function)" i
+new Promise((resolve, reject) => {
+	${1}
+})${2}
+endsnippet
+
+snippet np- "New Promise wrapper (lambda function)" i
+new Promise(${1:resolve} => ${2:foo})${3}
+endsnippet
+
+snippet pr "Promise.resolve()" i
+Promise.resolve(${1})${2}
+endsnippet
+snippet pe "Promise.reject()" i
+Promise.reject(${1})${2}
+endsnippet
+
+snippet pa "Promise.all([])" i
+Promise.all(${1:[]})${2}
+endsnippet
+
+snippet pt "Promise.then()" i
+.then(${1:foo} => {
+	${2}
+})${3}
+endsnippet
+snippet pt- "Promise.then() (just return)" i
+.then(${1:foo} => ${2:bar})${3}
+endsnippet
+
+snippet pc "Promise.catch()" i
+.catch(${1:foo} => {
+	${2}
+})${3}
+endsnippet
+snippet pc- "Promise.catch() (just return)" i
+.catch(${1:foo} => ${2:bar})${3}
+endsnippet
+
+snippet ptc "Promise.then(A, B)" i
+.then(${1:foo} => {
+	${2}
+}, (${3:err}) => {
+	${4}
+})${5}
+endsnippet
+snippet ptc- "Promise.then(A, B) (just return)" i
+.then(
+	(${1:foo}) => ${2:bar},
+	(${3:err}) => ${4:baz}
+)${5}
+endsnippet
+
+
+snippet ne "New exception instance" i
+new Error('${1}')${2}
+endsnippet
+
+snippet te "Throw new exception instance" i
+throw new Error('${1}');${2}
+endsnippet
+
+snippet tt "Throw something" i
+throw ${1};${2}
+endsnippet
+
+snippet tt- "Throw something (without semicolon)" i
+throw ${1}
+endsnippet
+
+
+
+snippet -v "Variable definition with value" i
+var ${1:foo} = ${2};${3}
+endsnippet
+
+snippet -v- "Variable definition prefix" i
+var ${1:foo} = ${2}
+endsnippet
+
+snippet -vv "var prefix" i
+var ${1}
+endsnippet
+
+
+snippet -l "Block scope variable definition with value" i
+let ${1:foo} = ${2};${3}
+endsnippet
+
+snippet -l- "Block scope variable definition without value" i
+let ${1:foo} = ${2}
+endsnippet
+
+snippet -ll "let prefix" i
+let ${1}
+endsnippet
+
+
+snippet -c "Constant definition" i
+const ${1:foo} = ${2};${3}
+endsnippet
+
+snippet -c- "Constant definition prefix" i
+const ${1:foo} = ${2}
+endsnippet
+
+snippet -cc "const prefix" i
+const ${1}
+endsnippet
+
+
+
+snippet -r "Return value" i
+return ${1};
+endsnippet
+
+snippet -rr "Return value without semicolon" i
+return ${1}
+endsnippet
+
+snippet -r; "Function break" i
+return;
+endsnippet
+
+
+snippet tof "Get type of something" i
+typeof ${1}
+endsnippet
+
+snippet mapp "Function hash-map with otherwise" i
+var map = {
+	${3:foo}: function () {
+		${4}
+	},
+	${5:bar}: function () {
+		${6}
+	},
+	otherwise: function () {
+		${7}
+	}
+};
+
+if (map.hasOwnProperty(${1:x})) {
+	map[${2:x}]();
+} else {
+	map.otherwise();
+}
+endsnippet
+snippet map "Function hash-map with otherwise (arrow function)" i
+const map = {
+	${3:foo}: () => {
+		${4}
+	},
+	${5:bar}: () => {
+		${6}
+	},
+	otherwise: () => {
+		${7}
+	}
+};
+
+if (map.hasOwnProperty(${1:x})) {
+	map[${2:x}]();
+} else {
+	map.otherwise();
+}
+endsnippet
+snippet map- "Function hash-map with otherwise (arrow function, just value)" i
+const map = {
+	${4:foo}: () => ${5:a},
+	${6:bar}: () => ${7:b},
+	otherwise: () => ${8:c}
+};
+const ${3:baz} = (
+	map.hasOwnProperty(${1:x}) ? map[${2:x}]() : map.otherwise();
+);
+endsnippet
+snippet mape "Function hash-map with otherwise (ES6 methods)" i
+const map = {
+	${3:foo}() {
+		${4}
+	},
+	${5:bar}() {
+		${6}
+	},
+	otherwise() {
+		${7}
+	}
+};
+
+if (map.hasOwnProperty(${1:x})) {
+	map[${2:x}]();
+} else {
+	map.otherwise();
+}
+endsnippet
+
+snippet dg "Call debugger" i
+debugger;
+endsnippet
+
+snippet // "JSDoc comment" i
+/**
+ * ${1:Description.}
+ *
+ * @${2:public}
+ */
+endsnippet
+
+snippet //c "JSDoc inline @const" i
+/** @${1:const} */ ${2}
+endsnippet
+
+snippet //p "JSDoc inline @private" i
+/** @${1:private} */ ${2}
+endsnippet
+
+snippet //t "JSDoc inline @type" i
+/** @type {${1:Object}} */ ${2}
+endsnippet
+
+snippet try "try/catch" i
+try {
+	${1}
+} catch (err) {
+	${2:console.error(err);}
+}
+endsnippet
+
+
+snippet -x "export" i
+export ${1}
+endsnippet
+
+snippet -xd "export default" i
+export default ${1}
+endsnippet
+
+snippet -xt "export type (flow-type)" i
+export type ${1}
+endsnippet
+
+
+snippet -cls "class" i
+class ${1:Name} {
+	${2}
+}${3}
+endsnippet
+
+snippet -clx "class extends" i
+class ${1:Name} extends ${2:Parent} {
+	${3}
+}${4}
+endsnippet
+
+snippet -clc "class constructor" i
+constructor() {
+	super();${1}
+}${2}
+endsnippet
+
+
+snippet -im "import module" i
+import '${1:module}';${2}
+endsnippet
+
+snippet -id "import default" i
+import ${1:foo} from '${2:module}';${3}
+endsnippet
+
+snippet -ia "import all as" i
+import * as ${1:foo} from '${2:module}';${3}
+endsnippet
+
+snippet -is "import something from" i
+import { ${1:foo} } from '${2:module}';${3}
+endsnippet
+
+snippet -it "import type from" i
+import type { ${1:Type} } from '${2:module}';${3}
+endsnippet
+
+snippet -m "es6 method" i
+${1:foo}(${2}) {
+	${3}
+}${4}
 endsnippet
