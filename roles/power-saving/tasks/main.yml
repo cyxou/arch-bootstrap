@@ -1,3 +1,3 @@
+- include: powertop.yml
 - include: i915.yml
 - include: tlp.yml
-- include: powertop.yml

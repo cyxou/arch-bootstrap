@@ -3,7 +3,7 @@
   roles:
 #   - linux-lts # Do not use linux-lts unless you absolutely sure about this
     - tweaking
-#   - power-saving
+    - power-saving
     - video-drivers
     - base
     - x11
@@ -30,6 +30,7 @@
     - vim
     - browsers
     - minikube
+    - kops
 
 # vars_prompt:
 #   - name: user_password
