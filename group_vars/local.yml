@@ -43,6 +43,7 @@ base_packages:
   - gopass
   - pcmanfm
   - httpie
+  - unclutter
 
 xorg_packages:
   - xorg-server

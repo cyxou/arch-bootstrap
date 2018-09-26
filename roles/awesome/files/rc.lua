@@ -52,7 +52,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be comma-separated
+run_once({ "unclutter -root" }) -- entries must be comma-separated
 
 -- This function implements the XDG autostart specification
 --[[
