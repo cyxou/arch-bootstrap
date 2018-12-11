@@ -44,6 +44,8 @@ base_packages:
   - pcmanfm
   - httpie
   - unclutter
+  - fzf
+  - ripgrep
 
 xorg_packages:
   - xorg-server

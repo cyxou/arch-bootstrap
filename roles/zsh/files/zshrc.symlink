@@ -145,6 +145,13 @@ if [ $commands[kubectl] ]; then
   source <(kubectl completion zsh | sed 's/kubectl/k/g')
 fi
 
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}"'
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# Enable fuzzy finder (fzf) key bindings
+[ -f /usr/share/fzf/key-bindings.zsh ] && set -o vi && source /usr/share/fzf/key-bindings.zsh
+
 # Configure npm to stop asksing about root permissions
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
