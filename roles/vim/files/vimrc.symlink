@@ -6,7 +6,6 @@ set backupcopy=yes " this lets webpack dev server to watch for changes in files
 "set noswapfile
 set history=100
 set nowrap
-
 filetype off                  " required
 
 set modelines=1
@@ -463,3 +462,18 @@ set t_XR=[23m
 
 " Do not store temporary files outside of the secure working directory when editing secrets.
 au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
+" Set russian key map
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+
+" Change to us keyboard on leaving insert mode
+" Check theme.lua for kbdcfg.switchToUs() method
+function! SetEnLayout()
+  silent !awesome-client 'local awful = require("awful"); kbdcfg.switchToUs()' > /dev/null
+endfunction
+autocmd InsertLeave * call SetEnLayout()
+
+" Guard ttymouse
+if !has('nvim')
+  set ttymouse=xterm2
+endif

@@ -336,6 +336,12 @@ kbdcfg = {
       local t = kbdcfg.layout[kbdcfg.current]
       kbdcfg.widget:set_markup(markup(theme.fg_normal, markup.font(theme.font, " " .. t[3] .. " ")))
       os.execute(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2])
+  end,
+  switchToUs = function ()
+    kbdcfg.current = 1
+      local t = kbdcfg.layout[kbdcfg.current]
+      kbdcfg.widget:set_markup(markup(theme.fg_normal, markup.font(theme.font, " " .. t[3] .. " ")))
+      os.execute(kbdcfg.cmd .. " " .. t[1] .. " " .. t[2])
   end
 }
 
