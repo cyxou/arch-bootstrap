@@ -473,7 +473,16 @@ function! SetEnLayout()
 endfunction
 autocmd InsertLeave * call SetEnLayout()
 
-" Guard ttymouse
-if !has('nvim')
-  set ttymouse=xterm2
+"""""""""""""""""""""""""""""
+" NEOVIM SPECIFIC SETTINGS: "
+"""""""""""""""""""""""""""""
+if has('nvim')
+
+  " This makes vim-fugitive work when entering patch mode on staging files
+  augroup nvim_term
+    au!
+    au TermOpen * startinsert
+    au TermClose * stopinsert
+  augroup END
+
 endif

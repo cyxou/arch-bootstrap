@@ -1,0 +1,9 @@
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Copy init.vim file
+  template:
+    src: "init.j2"
+    dest: "{{ wsl_bootstrap_user_home }}/.config/nvim/init.vim"
+
+- include: "{{ wsl_bootstrap_home }}/roles/vim/tasks/vim-plugins.yml"

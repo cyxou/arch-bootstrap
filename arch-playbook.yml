@@ -28,6 +28,7 @@
     - npm
     - termite
     - vim
+    - neovim
     - browsers
     - minikube
     - kops

@@ -1,0 +1,5 @@
+- name: Install neovim and python adapter
+  pacman:
+    name: neovim,python-neovim
+    state: latest
+  become: yes
