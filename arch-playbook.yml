@@ -32,6 +32,7 @@
     - browsers
     - minikube
     - kops
+    - systemd-timesyncd
 
 # vars_prompt:
 #   - name: user_password
