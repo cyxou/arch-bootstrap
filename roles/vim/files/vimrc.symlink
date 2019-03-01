@@ -40,13 +40,12 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'sirver/ultisnips'
 Plugin 'stephpy/vim-yaml'
 
-" JavaScript
+" TypeScript and JavaScript
+Plugin 'quramy/tsuquyomi'
+Plugin 'quramy/vim-js-pretty-template'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'ternjs/tern_for_vim'
 Plugin 'pangloss/vim-javascript'
-
-" TypeScript
-Plugin 'quramy/tsuquyomi'
-Plugin 'leafgarland/typescript-vim'
 
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-eunuch'
@@ -56,8 +55,16 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
 Plugin 'vim-scripts/git-file.vim'
+
+if !has('nvim')
+  "Plugin 'scrooloose/syntastic'
+endif
+
+if has('nvim')
+  " asynchronous syntastic analog for neovim
+  Plugin 'w0rp/ale'
+endif
 
 " Theming
 Plugin 'vim-airline/vim-airline'
@@ -82,7 +89,13 @@ filetype indent plugin on
 syntax enable
 set foldmethod=syntax
 set background=dark
-"colorscheme solarized
+
+" FINDING FILES:
+" Search down into subfolder
+set path+=**
+" Display all matching files when we tab complete
+set wildmenu
+
 " Set shell colors to make it work with urxvt and termite
 " More info at https://github.com/chriskempson/base16-shell
 if filereadable(expand("~/.vimrc_background"))
@@ -219,7 +232,7 @@ autocmd FileType javascript let g:SuperTabContextDefaultCompletionType = "<c-x><
 let g:ctrlp_cmd = 'CtrlP'
 
 " CtrlP - files matched are ignored when expanding wildcards
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/build/*,*/dist/*,*/coverage/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules*/*,*/build/*,*/dist/*,*/coverage/*
 let g:ctrlp_custom_ignore = {
       \ 'dir': '\v[\/]\.(git|hg|svn)$',
       \ 'file': '\v\.(exe|so|dll)$',
@@ -229,7 +242,7 @@ let g:ctrlp_custom_ignore = {
 " let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " Close buffer via <C-x> using CtrlP
-let g:ctrlp_buffer_func = { 'enter': 'CtrlPMappings' }
+let g:ctrlp_buffer_func = { 'enter': 'CtrlPMapping' }
 
 function! CtrlPMapping()
   nnoremap <buffer> <silent> <C-x> :call <sid>DeleteBuffer()<cr>
@@ -253,33 +266,41 @@ let g:syntastic_html_checkers = ['htmlhint']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:syntastic_always_populate_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_wq=1
 let g:Syntastic_enable_signs=1
 let g:syntastic_enable_balloons=0
-" Make syntastic errors highlighting more readable by assigning it to Error highlighting grop
+" Make syntastic errors highlighting more readable by assigning it to Error highlighting group
 " see more options with :highlight
 highlight link SyntasticError Error
 
 let g:tsuquyomi_disable_quickfix = 1
-let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_completion_detail = 0
 let g:tsuquyomi_disable_default_mappings = 1
 " Typescript support via tsuquyomi. You shouldn't use 'tsc' checker."
 "let g:syntastic_typescript_checkers = ['tsuquyomi']
-let g:syntastic_typescript_checkers = ['tslint']
+"let g:syntastic_typescript_checkers = ['tslint']
 
-" Show tooltip for an object under the cursor
-autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
-
-" Go to definition
-nnoremap <leader>gd :TsuDefinition<CR>
+augroup typescript_settings
+  autocmd FileType typescript setlocal completeopt-=menu
+  " Show tooltip for an object under the cursor
+  autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+  " Go deep to definition, where it was defined
+  autocmd FileType typescript nmap <leader>gdd :TsuDefinition<CR>
+  " Quick fix an error if suggested
+  autocmd FileType typescript nmap <leader>qf :TsuQuickFix<CR>
+  " Show a list of location where the symbol under the cursor is referenced.
+  autocmd FileType typescript nmap <leader>re :TsuReferences<CR>
+augroup END
 
 " Explore tweaking
 let g:netrw_banner = 0
 
 " NerdTree style in Explorer mode
 let g:netrw_liststyle=3
-let g:NERDTreeWinSize=20
+let g:NERDTreeWinSize=30
+" Close vim if only the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Hide vim's sw* files in netrw
 let g:netrw_list_hide= '.*\.swp$,.*\.un\~$'
@@ -467,7 +488,7 @@ au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
 " Change to us keyboard on leaving insert mode
-" Check theme.lua for kbdcfg.switchToUs() method
+" Check out theme.lua for kbdcfg.switchToUs() method
 function! SetEnLayout()
   silent !awesome-client 'local awful = require("awful"); kbdcfg.switchToUs()' > /dev/null
 endfunction
@@ -484,5 +505,23 @@ if has('nvim')
     au TermOpen * startinsert
     au TermClose * stopinsert
   augroup END
+
+  " ALE:
+  " Only run linters named in ale_linters settings.
+  let g:ale_linters_explicit = 1
+  let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \   'typescript': ['tsserver', 'tslint'],
+  \}
+  " Set vim-airline extension
+  let g:airline#extensions#ale#enabled = 1
+  " Navigate between errors (don't work as conflict with vim-unimpared)
+  nnoremap [l :ALEPrevious<CR>
+  nnoremap ]l :ALENext<CR>
+  " Run linters only when files are saved (saves battery life)
+  let g:ale_lint_on_text_changed = 'never'
+
+  " Make highlighting not ugly
+  highlight link ALEError Error
 
 endif

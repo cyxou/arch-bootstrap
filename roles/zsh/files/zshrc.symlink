@@ -54,9 +54,14 @@ POWERLEVEL9K_VCS_GIT_ICON=''
 alias tma='tmux attach -dt default || tmux new -s default'
 alias ns='npm start'
 alias nst='npm stop'
-alias vims='vim -S'
+alias tw='tsc -w'
+alias vims='nvim -S'
+alias vim='nvim'
 alias k='kubectl'
 alias xc='xclip -selection clipboard'
+alias dco='docker-compose'
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -115,7 +120,7 @@ export PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -124,7 +129,7 @@ export EDITOR='vim'
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Add nvm installed with yaourt
-#source /usr/share/nvm/init-nvm.sh
+source /usr/share/nvm/init-nvm.sh
 
 # This is needed for viewing pictures in terminal with fim
 export FBFONT="/usr/share/kbd/consolefonts/ter-216n.psf.gz"
@@ -147,11 +152,13 @@ fi
 
 # Setting fd as the default source for fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}"'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Enable fuzzy finder (fzf) key bindings
 [ -f /usr/share/fzf/key-bindings.zsh ] && set -o vi && source /usr/share/fzf/key-bindings.zsh
 
 # Configure npm to stop asksing about root permissions
-export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
+#export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+#export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
+#export PATH="$PATH:$HOME/.npm-global/bin"
