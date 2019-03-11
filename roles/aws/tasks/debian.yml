@@ -1,0 +1,6 @@
+- name: Install aws-cli
+  apt:
+    name: aws-cli
+    state: latest
+  become: yes
+
