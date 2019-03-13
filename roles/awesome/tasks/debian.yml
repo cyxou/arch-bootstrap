@@ -1,5 +1,6 @@
 - name: Install Awesome via apt-get
   apt:
     name: awesome
+    state: latest
   become: yes
   tags: nvm

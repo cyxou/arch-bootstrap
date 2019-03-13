@@ -1,2 +1,5 @@
-- import_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
+- name: Install NodeJS
+  pacman:
+    name: nodejs
+    state: latest
+  become: yes

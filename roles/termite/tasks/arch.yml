@@ -1,0 +1,5 @@
+- name: Install termite via pacman
+  pacman:
+    name: termite
+    state: present
+  become: yes

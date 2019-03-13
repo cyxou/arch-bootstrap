@@ -1,5 +1,7 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
 
 - name: Make awesome mine
   block:
@@ -29,6 +31,7 @@
         dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/themes"
         state: link
         force: yes
+        follow: no
 
 - name: Backup existing rc.lua file
   block:

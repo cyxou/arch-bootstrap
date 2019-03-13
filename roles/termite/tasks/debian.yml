@@ -1,0 +1,5 @@
+- name: Install termite via apt-get
+  apt:
+    name: termite
+    state: latest
+  become: yes

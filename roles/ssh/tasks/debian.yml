@@ -1,0 +1,6 @@
+- name: Install OpenSSH via apt-get
+  apt:
+    name: openssh
+    state: latest
+  become: yes
+
