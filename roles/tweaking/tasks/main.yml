@@ -1,3 +1,4 @@
 - include: power-button.yml
 - include: nvme.yml
 - include: disable-bluetooth.yml
+- include: capslock2ctrl.yml

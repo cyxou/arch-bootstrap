@@ -1,0 +1,5 @@
+- name: Remap CapsLock to Ctrl for tty
+  lineinfile:
+    path: /etc/default/keyboard
+    line: 'XKBOPTIONS="ctrl:nocaps"'
+  become: yes
