@@ -1,6 +1,12 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
+- name: Make sure that /etc/X11/xorg.conf.d exists
+  file:
+    path: /etc/X11/xorg.conf.d
+    state: directory
+  become: yes
+
 - include: backlight.yml
 - include: capslock2ctrl.yml
 - include: touchpad.yml
