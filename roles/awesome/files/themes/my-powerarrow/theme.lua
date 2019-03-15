@@ -260,6 +260,7 @@ local baticon = wibox.widget.imagebox(theme.widget_battery_full)
 local bat = lain.widget.bat({
     ac = "AC",
     battery = "BAT0",
+    n_perc = { 5, 10 },
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
             setBatArrowColor(bat_now.perc)

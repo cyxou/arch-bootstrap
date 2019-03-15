@@ -89,6 +89,7 @@ local terminal     = "termite"
 local editor       = os.getenv("EDITOR") or "vim"
 local gui_editor   = "vim"
 local browser      = "chromium"
+local browser2      = "opera"
 local guieditor    = "code"
 local scrlocker    = "xlock"
 
@@ -389,7 +390,7 @@ globalkeys = my_table.join(
 
     -- Dropdown application
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end,
-              {description = "dropdown application", group = "launcher"}),
+                    {description = "dropdown application", group = "launcher"}),
 
     -- Widgets popups
     awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end,
@@ -485,6 +486,8 @@ globalkeys = my_table.join(
 
     -- User programs
     awful.key({ modkey }, "g", function () awful.spawn(browser) end,
+              {description = "run browser", group = "launcher"}),
+    awful.key({ modkey }, "o", function () awful.spawn(browser2) end,
               {description = "run browser", group = "launcher"}),
     awful.key({ modkey }, "a", function () awful.spawn(guieditor) end,
               {description = "run gui editor", group = "launcher"}),
@@ -648,9 +651,13 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = false } },
 
-    -- Set GetBot to always map on the second tag on screen 1.
+    -- Set GetBot to always map on the second tag on screen 1
+    -- Use `xprop` to obtain the class name
     { rule = { class = "GetBot" },
       properties = { screen = 1, tag = awful.util.tagnames[2] } },
+
+    { rule = { class = "Electron" },
+      properties = { screen = 1, tag = awful.util.tagnames[4] } },
 
     -- Set Chromium to always start on screen 3 in normal mode (by default it is maximized).
     { rule = { class = "Chromium" },
@@ -664,6 +671,15 @@ awful.rules.rules = {
                      --maximized_horizontal = false,
                      --tag = awful.screen.focused().tags[3]
                    --}
+    },
+    -- Set Opera to always start on in normal mode (by default it is maximized).
+    { rule = { class = "Opera" },
+      properties = {
+        screen = 1,
+        maximized = false,
+        maximized_vertical = false,
+        maximized_horizontal = false,
+      }
     },
 
 
