@@ -33,6 +33,14 @@
   pacman:
     name: bbswitch
     state: present
+  when: ansible_os_family == "Archlinux"
+  become: yes
+
+- name: Install bbswitch package
+  apt:
+    name: bbswitch
+    state: present
+  when: ansible_os_family == "Debian"
   become: yes
 
 # This is needed only if disabling GPU without bumblebee installed

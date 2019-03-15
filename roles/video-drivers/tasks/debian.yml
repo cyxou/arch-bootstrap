@@ -1,0 +1,5 @@
+- name: Install bumblebee via apt
+  apt:
+    name: bumblebee
+    state: present
+  become: yes

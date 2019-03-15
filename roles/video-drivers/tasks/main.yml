@@ -1,11 +1,7 @@
-- name: Install bumblebee
-  pacman:
-    name: "{{ item }}"
-    state: present
-  with_items:
-      - bumblebee
-      - mesa
-  become: yes
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
 
 - name: Adding current user to group bumblebee
   user:

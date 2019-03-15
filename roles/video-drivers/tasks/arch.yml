@@ -1,0 +1,10 @@
+- name: Install bumblebee via pacman
+  pacman:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - bumblebee
+      - mesa
+  become: yes
+
+
