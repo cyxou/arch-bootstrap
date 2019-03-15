@@ -23,7 +23,7 @@
             state: present
             line: "linux  /vmlinuz-linux-lts"
 
-        - name: Make sure to remove /initramfs-linux-lts.img from the /boot/loader/entries/arch.conf
+        - name: Make sure to remove /initramfs-linux.img from the /boot/loader/entries/arch.conf
           lineinfile:
             path: /boot/loader/entries/arch.conf
             state: absent
