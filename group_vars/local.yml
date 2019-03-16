@@ -12,7 +12,7 @@ user:
 # Local home directory
 wsl_bootstrap_user_home: "{{ '~' | expanduser }}"
 # Where this repo lives. Probably don't need to change this.
-wsl_bootstrap_home: "{{wsl_bootstrap_user_home}}/code/arch-bootstrap"
+wsl_bootstrap_home: "{{wsl_bootstrap_user_home}}/arch-bootstrap"
 
 git:
   # Name used in commit messages
