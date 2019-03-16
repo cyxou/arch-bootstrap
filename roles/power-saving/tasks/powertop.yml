@@ -9,7 +9,7 @@
 
     - name: Copy powertop.service
       copy:
-        src: "{{ wsl_bootstrap_home }}/roles/power-saving/files/powertop.service"
+        src: "{{ arch_bootstrap_home }}/roles/power-saving/files/powertop.service"
         dest: /etc/systemd/system/powertop.service
 
     - name: Enable powertop.service

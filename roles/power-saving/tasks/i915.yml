@@ -1,6 +1,6 @@
 # https://wiki.archlinux.org/index.php/Dell_XPS_15_9560
 - name: Set options for i915 kernel module
   copy:
-    src: "{{ wsl_bootstrap_home }}/roles/power-saving/files/i915_options.conf"
+    src: "{{ arch_bootstrap_home }}/roles/power-saving/files/i915_options.conf"
     dest: "/etc/modprobe.d/i915_options.conf"
   become: yes

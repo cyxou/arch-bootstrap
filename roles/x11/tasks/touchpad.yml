@@ -1,5 +1,5 @@
 - name: Use libinput for the touchpad driver
   copy:
-    src: "{{ wsl_bootstrap_home }}/roles/x11/files/30-touchpad.conf"
+    src: "{{ arch_bootstrap_home }}/roles/x11/files/30-touchpad.conf"
     dest: /etc/X11/xorg.conf.d/30-touchpad.conf
   become: yes

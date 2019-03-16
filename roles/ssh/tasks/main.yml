@@ -5,7 +5,7 @@
 
 - name: Make directory for user SSH key
   file:
-    path: "{{ wsl_bootstrap_user_home }}/.ssh"
+    path: "{{ arch_bootstrap_user_home }}/.ssh"
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -13,7 +13,7 @@
 - name: Install user SSH key
   copy:
     src: "{{ ssh.user_key }}"
-    dest: "{{ wsl_bootstrap_user_home }}/.ssh/id_rsa"
+    dest: "{{ arch_bootstrap_user_home }}/.ssh/id_rsa"
     mode: 600
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
@@ -23,10 +23,10 @@
   block:
     - name: Check that the id_rsa key already exists
       stat:
-        path: "{{ wsl_bootstrap_user_home}}/.ssh/id_rsa"
+        path: "{{ arch_bootstrap_user_home}}/.ssh/id_rsa"
       register: stat_result
 
     - name: Generate new id_rsa, if it doesn't exist
-      command : ssh-keygen -q -t rsa -f "{{ wsl_bootstrap_user_home}}/.ssh/id_rsa" -C "" -N ""
+      command : ssh-keygen -q -t rsa -f "{{ arch_bootstrap_user_home}}/.ssh/id_rsa" -C "" -N ""
       when: stat_result.stat.exists == False
   when: ssh.generate_user_key

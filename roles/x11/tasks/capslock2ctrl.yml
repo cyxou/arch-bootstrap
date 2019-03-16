@@ -1,5 +1,5 @@
 - name: Map Caps Lock to Ctrl
   copy:
-    src: "{{ wsl_bootstrap_home }}/roles/x11/files/01-keyboard-capslock2ctrl.conf"
+    src: "{{ arch_bootstrap_home }}/roles/x11/files/01-keyboard-capslock2ctrl.conf"
     dest: /etc/X11/xorg.conf.d/01-keyboard-capslock2ctrl.conf
   become: yes

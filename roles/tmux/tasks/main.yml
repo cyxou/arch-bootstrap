@@ -43,14 +43,14 @@
   block:
     - name: Link tmux.conf
       file:
-        src: "{{ wsl_bootstrap_home }}/roles/tmux/files/tmux.conf"
-        dest: "{{ wsl_bootstrap_user_home }}/.tmux.conf"
+        src: "{{ arch_bootstrap_home }}/roles/tmux/files/tmux.conf"
+        dest: "{{ arch_bootstrap_user_home }}/.tmux.conf"
         state: link
         force: yes
     - name: Link tmux-statusline.conf
       file:
-        src: "{{ wsl_bootstrap_home }}/roles/tmux/files/tmux-statusline.conf"
-        dest: "{{ wsl_bootstrap_user_home }}/.tmux-statusline.conf"
+        src: "{{ arch_bootstrap_home }}/roles/tmux/files/tmux-statusline.conf"
+        dest: "{{ arch_bootstrap_user_home }}/.tmux-statusline.conf"
         state: link
         force: yes
 
@@ -58,8 +58,8 @@
 - name: Install Tmux Plugin Manager
   git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ wsl_bootstrap_user_home }}/.tmux/plugins/tpm"
+    dest: "{{ arch_bootstrap_user_home }}/.tmux/plugins/tpm"
 
 - name: Load italic terminfo
-  command: "tic {{ wsl_bootstrap_home }}/roles/tmux/files/tmux-256color-italic.terminfo"
+  command: "tic {{ arch_bootstrap_home }}/roles/tmux/files/tmux-256color-italic.terminfo"
 

@@ -4,6 +4,6 @@
 - name: Copy init.vim file
   template:
     src: "init.j2"
-    dest: "{{ wsl_bootstrap_user_home }}/.config/nvim/init.vim"
+    dest: "{{ arch_bootstrap_user_home }}/.config/nvim/init.vim"
 
-- include: "{{ wsl_bootstrap_home }}/roles/vim/tasks/vim-plugins.yml"
+- include: "{{ arch_bootstrap_home }}/roles/vim/tasks/vim-plugins.yml"

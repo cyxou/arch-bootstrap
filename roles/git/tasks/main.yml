@@ -5,12 +5,12 @@
 
 - name: Link global gitignore file
   file:
-    src: "{{ wsl_bootstrap_home }}/roles/git/files/gitignore_global.symlink"
-    dest: "{{ wsl_bootstrap_user_home }}/.gitignore_global"
+    src: "{{ arch_bootstrap_home }}/roles/git/files/gitignore_global.symlink"
+    dest: "{{ arch_bootstrap_user_home }}/.gitignore_global"
     state: link
     force: yes
 
 - name: Make sure gitconfig is up to date
   template:
     src: "gitconfig.j2"
-    dest: "{{ wsl_bootstrap_user_home }}/.gitconfig"
+    dest: "{{ arch_bootstrap_user_home }}/.gitconfig"

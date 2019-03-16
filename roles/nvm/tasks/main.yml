@@ -6,12 +6,12 @@
 - name: Install nvm
   git:
     repo: https://github.com/creationix/nvm.git
-    dest: "{{ wsl_bootstrap_user_home }}/.nvm"
+    dest: "{{ arch_bootstrap_user_home }}/.nvm"
   tags: nvm
 
 - name: Source nvm in ~/.zshrc
   lineinfile:
-    path: "{{ wsl_bootstrap_user_home }}/.zshrc"
+    path: "{{ arch_bootstrap_user_home }}/.zshrc"
     line: "{{ item }}"
   with_items:
     - 'export NVM_DIR="$HOME/.nvm"'

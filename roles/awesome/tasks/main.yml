@@ -7,28 +7,28 @@
   block:
     - name: Make sure ~/.config/awesome exists
       file:
-        path: "{{ wsl_bootstrap_user_home }}/.config/awesome"
+        path: "{{ arch_bootstrap_user_home }}/.config/awesome"
         state: directory
 
     - name: Install lain
       git:
         repo: https://github.com/lcpz/lain
-        dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/lain"
+        dest: "{{ arch_bootstrap_user_home }}/.config/awesome/lain"
 
     - name: Install freedesktop
       git:
         repo: https://github.com/lcpz/awesome-freedesktop.git
-        dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/freedesktop"
+        dest: "{{ arch_bootstrap_user_home }}/.config/awesome/freedesktop"
 
     - name: Install awesome-copycats themes
       git:
         repo: https://github.com/lcpz/awesome-copycats.git
-        dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/awesome-copycats"
+        dest: "{{ arch_bootstrap_user_home }}/.config/awesome/awesome-copycats"
 
     - name: Symlink my theme folder
       file:
-        src: "{{ wsl_bootstrap_home }}/roles/awesome/files/themes"
-        dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/themes"
+        src: "{{ arch_bootstrap_home }}/roles/awesome/files/themes"
+        dest: "{{ arch_bootstrap_user_home }}/.config/awesome/themes"
         state: link
         force: yes
         follow: no
@@ -36,19 +36,19 @@
 - name: Backup existing rc.lua file
   block:
     - name: Check if rc.lua exists
-      stat: path="{{ wsl_bootstrap_user_home }}/.config/awesome/rc.lua"
+      stat: path="{{ arch_bootstrap_user_home }}/.config/awesome/rc.lua"
       register: rclua_stat
 
     - name: Backup rc.lua file
-      command: "mv {{ wsl_bootstrap_user_home }}/.config/awesome/rc.lua {{ wsl_bootstrap_user_home }}/.config/awesome/rc.lua.bak"
+      command: "mv {{ arch_bootstrap_user_home }}/.config/awesome/rc.lua {{ arch_bootstrap_user_home }}/.config/awesome/rc.lua.bak"
       args:
-        creates: "{{ wsl_bootstrap_user_home }}/.config/awesome/rc.lua.bak"
+        creates: "{{ arch_bootstrap_user_home }}/.config/awesome/rc.lua.bak"
       when: rclua_stat.stat.exists
 
 - name: Symlink the rc.lua file
   file:
-    src: "{{ wsl_bootstrap_home }}/roles/awesome/files/rc.lua"
-    dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/rc.lua"
+    src: "{{ arch_bootstrap_home }}/roles/awesome/files/rc.lua"
+    dest: "{{ arch_bootstrap_user_home }}/.config/awesome/rc.lua"
     state: link
     force: yes
 
@@ -56,13 +56,13 @@
 #  block:
 #  - name: Symlink powerarrow-dark theme.lua
 #    file:
-#      src: "{{ wsl_bootstrap_home }}/roles/awesome/files/powerarrow-dark-theme.lua"
-#      dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/themes/powerarrow-dark/theme.lua"
+#      src: "{{ arch_bootstrap_home }}/roles/awesome/files/powerarrow-dark-theme.lua"
+#      dest: "{{ arch_bootstrap_user_home }}/.config/awesome/themes/powerarrow-dark/theme.lua"
 #      state: link
 #      force: yes
 #  - name: Symlink powerarrow theme.lua
 #    file:
-#      src: "{{ wsl_bootstrap_home }}/roles/awesome/files/powerarrow-theme.lua"
-#      dest: "{{ wsl_bootstrap_user_home }}/.config/awesome/themes/powerarrow/theme.lua"
+#      src: "{{ arch_bootstrap_home }}/roles/awesome/files/powerarrow-theme.lua"
+#      dest: "{{ arch_bootstrap_user_home }}/.config/awesome/themes/powerarrow/theme.lua"
 #      state: link
 #      force: yes

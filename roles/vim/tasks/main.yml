@@ -3,8 +3,8 @@
 
 - name: Symlink .vimrc file
   file:
-    src: "{{ wsl_bootstrap_home }}/roles/vim/files/vimrc.symlink"
-    dest: "{{ wsl_bootstrap_user_home }}/.vimrc"
+    src: "{{ arch_bootstrap_home }}/roles/vim/files/vimrc.symlink"
+    dest: "{{ arch_bootstrap_user_home }}/.vimrc"
     state: link
     force: yes
 

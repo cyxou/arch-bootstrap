@@ -10,9 +10,9 @@ user:
 # NOTE: The below 2 variables should not need to be changed if you cloned
 # this repo to '~/arch-bootstrap'
 # Local home directory
-wsl_bootstrap_user_home: "{{ '~' | expanduser }}"
+arch_bootstrap_user_home: "{{ '~' | expanduser }}"
 # Where this repo lives. Probably don't need to change this.
-wsl_bootstrap_home: "{{wsl_bootstrap_user_home}}/arch-bootstrap"
+arch_bootstrap_home: "{{ arch_bootstrap_user_home }}/arch-bootstrap"
 
 git:
   # Name used in commit messages

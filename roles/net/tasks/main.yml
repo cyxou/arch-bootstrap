@@ -5,7 +5,7 @@
 
 - name: Persist IPv4 TTL on restarts
   copy:
-    src: "{{ wsl_bootstrap_home }}/roles/net/files/00-ipv4-ttl.conf"
+    src: "{{ arch_bootstrap_home }}/roles/net/files/00-ipv4-ttl.conf"
     dest: "/etc/sysctl.d/00-ipv4-ttl.conf.conf"
   become: yes
 

@@ -6,17 +6,17 @@
 
     - name: Create .config/pip directory if doesn't exist
       file:
-        path: "{{ wsl_bootstrap_user_home }}/.config/pip"
+        path: "{{ arch_bootstrap_user_home }}/.config/pip"
         state: directory
 
     - name: Create .config/pip/pip.conf if doesn't exist
       file:
-        path: "{{ wsl_bootstrap_user_home }}/.config/pip/pip.conf"
+        path: "{{ arch_bootstrap_user_home }}/.config/pip/pip.conf"
         state: touch
 
     - name: Make sure that packages are installed under current user
       lineinfile:
-        dest: "{{ wsl_bootstrap_user_home }}/.config/pip/pip.conf"
+        dest: "{{ arch_bootstrap_user_home }}/.config/pip/pip.conf"
         state: present
         line: "{{ item }}"
       with_items:

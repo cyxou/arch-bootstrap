@@ -13,13 +13,13 @@
   block:
     - name: Create .config/termite directory if doesn't exist
       file:
-        path: "{{ wsl_bootstrap_user_home }}/.config/termite"
+        path: "{{ arch_bootstrap_user_home }}/.config/termite"
         state: directory
 
     - name: Symlink termite config file
       file:
-        src: "{{ wsl_bootstrap_home }}/roles/termite/files/config"
-        dest: "{{ wsl_bootstrap_user_home }}/.config/termite/config"
+        src: "{{ arch_bootstrap_home }}/roles/termite/files/config"
+        dest: "{{ arch_bootstrap_user_home }}/.config/termite/config"
         state: link
         force: yes
         state: link

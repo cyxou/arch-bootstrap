@@ -1,7 +1,7 @@
 - name: Install Vundle
   git:
     repo: https://github.com/VundleVim/Vundle.vim.git
-    dest: "{{ wsl_bootstrap_user_home }}/.vim/bundle/Vundle.vim"
+    dest: "{{ arch_bootstrap_user_home }}/.vim/bundle/Vundle.vim"
 
 - name: Install vim plugins
   shell: vim -c ":PluginInstall" -c q -c q -c q
@@ -21,29 +21,29 @@
 
     - name: Create the 'builds' directory
       file:
-        path: "{{ wsl_bootstrap_user_home }}/ycm_build"
+        path: "{{ arch_bootstrap_user_home }}/ycm_build"
         state: directory
 
     - name: Generate makefiles
-      command: sh -c "cmake -G 'Unix Makefiles' -DUSE_PYTHON2=OFF . {{ wsl_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp"
+      command: sh -c "cmake -G 'Unix Makefiles' -DUSE_PYTHON2=OFF . {{ arch_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp"
       args:
-        chdir: "{{ wsl_bootstrap_user_home }}/ycm_build"
+        chdir: "{{ arch_bootstrap_user_home }}/ycm_build"
 
     - name: Compile the library
       command: sh -c "cmake --build . --target ycm_core --config Release"
       args:
-        chdir: "{{ wsl_bootstrap_user_home }}/ycm_build"
+        chdir: "{{ arch_bootstrap_user_home }}/ycm_build"
   when: pluginsInstalled is succeeded
 
 - name: Install ternjs for vim
   npm:
-    path: "{{wsl_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/tern_runtime"
+    path: "{{arch_bootstrap_user_home }}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/tern_runtime"
   when: pluginsInstalled is succeeded
 
 - name: Install UltiSnips
   file:
-    src: "{{ wsl_bootstrap_home }}/roles/vim/files/UltiSnips"
-    dest: "{{ wsl_bootstrap_user_home }}/.vim/UltiSnips"
+    src: "{{ arch_bootstrap_home }}/roles/vim/files/UltiSnips"
+    dest: "{{ arch_bootstrap_user_home }}/.vim/UltiSnips"
     state: link
     force: yes
   when: pluginsInstalled is succeeded
