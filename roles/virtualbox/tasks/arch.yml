@@ -2,9 +2,27 @@
   pacman:
     name: "{{ item }}"
     state: present
-  with_items:
+  loop:
     - virtualbox
-    - virtualbox-host-modules-arch
     - virtualbox-guest-utils
+  become: yes
+
+- name: Install VirtualBox additional modules
+  pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - virtualbox-host-modules-arch
     - virtualbox-guest-modules-arch
   become: yes
+  when: not use_lts_kernel
+
+- name: Install VirtualBox additional modules for lts kernel
+  pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - virtualbox-host-dkms
+    - virtualbox-guest-dkms
+  become: yes
+  when: use_lts_kernel

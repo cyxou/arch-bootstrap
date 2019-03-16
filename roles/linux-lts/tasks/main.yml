@@ -4,7 +4,7 @@
       pacman:
         name: "{{ item }}"
         state: present
-      with_items:
+      loop:
         - linux-lts
         - linux-lts-headers
       register: installed
@@ -36,4 +36,3 @@
             line: "initrd  /initramfs-linux-lts.img"
       when: installed is succeeded
   become: yes
-  when: ansible_os_family == "Archlinux"

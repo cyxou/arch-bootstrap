@@ -3,3 +3,6 @@
     name: bumblebee
     state: present
   become: yes
+
+# bbswitch is packaged in Debian and is automatically installed when choosing to
+# install bumblebee through the repositories.

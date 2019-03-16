@@ -26,6 +26,9 @@ git:
   signing_key:
 
 hostname: xps
+
+# Do not use linux-lts unless you absolutely sure about this
+use_lts_kernel: no
  
 # Check it out with ifconfig
 wifi_interface: wlp59s0

@@ -1,7 +1,8 @@
 - name: Set up local development environment
   hosts: local
   roles:
-#   - linux-lts # Do not use linux-lts unless you absolutely sure about this
+    - role: 'linux-lts'
+      when: ansible_os_family == "Archlinux" and use_lts_kernel
     - tweaking
     - power-saving
     - video-drivers
@@ -11,7 +12,7 @@
     - ssh
     - net
     - aur
-    - yaourt
+    - { role: 'yaourt', tags: ['arch'] }
     - fonts
     - awesome
     - base16

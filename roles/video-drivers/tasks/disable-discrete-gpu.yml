@@ -1,3 +1,17 @@
+# This is needed only if disabling GPU without bumblebee installed
+- name: Copy bbswitch.conf
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/bbswitch.conf"
+    dest: "/etc/modprobe.d/bbswitch.conf"
+  become: yes
+
+# This is needed only if disabling GPU without bumblebee installed
+- name: Load bbswitch on boot
+  copy:
+    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_bbswitch.conf"
+    dest: "/etc/modules-load.d/bbswitch.conf"
+  become: yes
+
 # Taken from here:
 # https://wiki.archlinux.org/index.php/Dell_XPS_15_9560#Disable_discrete_GPU
 
@@ -20,39 +34,10 @@
 #    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_acpi_call.conf"
 #    dest: "/etc/modules-load.d/acpi_call.conf"
 #  become: yes
-#
-## This thing makes arch unbootable when using lts kernel
+
+# This thing makes arch unbootable when using lts kernel
 #- name: Turn off the GPU at boot via systemd-tmpfiles
 #  copy:
 #    src: "{{ wsl_bootstrap_home }}/roles/configure/files/tmpfiles_acpi_call.conf"
 #    dest: "/etc/tmpfiles.d/acpi_call.conf"
-#  become: yes
-
-# Disable descrete GPU with the bbswitch method
-- name: Install bbswitch package
-  pacman:
-    name: bbswitch
-    state: present
-  when: ansible_os_family == "Archlinux"
-  become: yes
-
-- name: Install bbswitch package
-  apt:
-    name: bbswitch
-    state: present
-  when: ansible_os_family == "Debian"
-  become: yes
-
-# This is needed only if disabling GPU without bumblebee installed
-#- name: Copy bbswitch.conf
-#  copy:
-#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/bbswitch.conf"
-#    dest: "/etc/modprobe.d/bbswitch.conf"
-#  become: yes
-
-# This is needed only if disabling GPU without bumblebee installed
-#- name: Load bbswitch on boot
-#  copy:
-#    src: "{{ wsl_bootstrap_home }}/roles/configure/files/module_bbswitch.conf"
-#    dest: "/etc/modules-load.d/bbswitch.conf"
 #  become: yes

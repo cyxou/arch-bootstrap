@@ -2,9 +2,22 @@
   pacman:
     name: "{{ item }}"
     state: present
-  with_items:
-      - bumblebee
-      - mesa
+  loop:
+    - bumblebee
+    - mesa
   become: yes
 
+# bbswitch disables descrete GPU when it is not needed
+- name: Install bbswitch package
+  pacman:
+    name: bbswitch
+    state: present
+  become: yes
+  when: not use_lts_kernel
 
+- name: Install bbswitch-dkms package
+  pacman:
+    name: bbswitch-dkms
+    state: present
+  become: yes
+  when: use_lts_kernel
