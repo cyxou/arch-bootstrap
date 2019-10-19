@@ -1,5 +1,5 @@
-#export TERM=xterm-256color
-export TERM=tmux-256color-italic
+export TERM=xterm-256color
+#export TERM=tmux-256color-italic
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -22,6 +22,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Install nerd-fonts-source-code-pro package from AUR.
 POWERLEVEL9K_MODE="nerdfont-complete"
 
+# This line is buggy as it removes the first character in git repository names as well
 #POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=true
 
 POWERLEVEL9K_FOLDER_ICON=''
@@ -60,7 +61,7 @@ alias vim='nvim'
 alias k='kubectl'
 alias xc='xclip -selection clipboard'
 alias dco='docker-compose'
-alias dcu='docker-compose up'
+alias dcu='docker-compose up --force-recreate'
 alias dcd='docker-compose down'
 
 # Uncomment the following line to use case-sensitive completion.
@@ -76,7 +77,7 @@ export UPDATE_ZSH_DAYS=7
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to disable command auto-correction.
 # DISABLE_CORRECTION="true"
@@ -127,9 +128,6 @@ export EDITOR='nvim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Add nvm installed with yaourt
-source /usr/share/nvm/init-nvm.sh
 
 # This is needed for viewing pictures in terminal with fim
 export FBFONT="/usr/share/kbd/consolefonts/ter-216n.psf.gz"
