@@ -438,45 +438,6 @@ globalkeys = my_table.join(
         end,
         {description = "volume 0%", group = "hotkeys"}),
 
-    -- MPD control
-    awful.key({ altkey, "Control" }, "Up",
-        function ()
-            awful.spawn.with_shell("mpc toggle")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc toggle", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Down",
-        function ()
-            awful.spawn.with_shell("mpc stop")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc stop", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Left",
-        function ()
-            awful.spawn.with_shell("mpc prev")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc prev", group = "widgets"}),
-    awful.key({ altkey, "Control" }, "Right",
-        function ()
-            awful.spawn.with_shell("mpc next")
-            beautiful.mpd.update()
-        end,
-        {description = "mpc next", group = "widgets"}),
-    awful.key({ altkey }, "0",
-        function ()
-            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
-            if beautiful.mpd.timer.started then
-                beautiful.mpd.timer:stop()
-                common.text = common.text .. lain.util.markup.bold("OFF")
-            else
-                beautiful.mpd.timer:start()
-                common.text = common.text .. lain.util.markup.bold("ON")
-            end
-            naughty.notify(common)
-        end,
-        {description = "mpc on/off", group = "widgets"}),
-
     -- Copy primary to clipboard (terminals to gtk)
     awful.key({ modkey }, "c", function () awful.spawn("xsel | xsel -i -b") end,
               {description = "copy terminal to gtk", group = "hotkeys"}),
@@ -661,16 +622,16 @@ awful.rules.rules = {
 
     -- Set Chromium to always start on screen 3 in normal mode (by default it is maximized).
     { rule = { class = "Chromium" },
-      callback = function(c)
-        c.maximized, c.maximized_vertical, c.maximized_horizontal = false, false, false
-      end
-      --properties = { screen = 1,
-                     --switchtotag = true,
-                     --maximized = false,
-                     --maximized_vertical = false,
-                     --maximized_horizontal = false,
-                     --tag = awful.screen.focused().tags[3]
-                   --}
+      --callback = function(c)
+        --c.maximized, c.maximized_vertical, c.maximized_horizontal = false, false, false
+      --end
+      properties = { screen = 1,
+                     switchtotag = true,
+                     maximized = false,
+                     maximized_vertical = false,
+                     maximized_horizontal = false,
+                     tag = awful.screen.focused().tags[3]
+                   }
     },
     -- Set Opera to always start on in normal mode (by default it is maximized).
     { rule = { class = "Opera" },
