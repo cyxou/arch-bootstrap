@@ -4,6 +4,15 @@ export TERM=xterm-256color
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_BEEP
+
 # Base16 Shell https://github.com/chriskempson/base16-shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
@@ -13,43 +22,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 
-ZSH_THEME="powerlevel9k/powerlevel9k"
-
-# Use SauceCodePro font from `ryanoasis/nerd-fonts` by cloning the repo with
-# git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-# Then cd into the repo and execute: ./install.sh SourceCodePro
-# OR
-# Install nerd-fonts-source-code-pro package from AUR.
-POWERLEVEL9K_MODE="nerdfont-complete"
-
-# This line is buggy as it removes the first character in git repository names as well
-#POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=true
-
-POWERLEVEL9K_FOLDER_ICON=''
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-POWERLEVEL9K_DIR_PATH_SEPARATOR='  '
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir dir_writable rbenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator vi_mode)
-POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='blue'
-POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='black'
-POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='green'
-POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='black'
-
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_with_package_name"
-POWERLEVEL9K_SHORTEN_DELIMITER=".."
-
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="▶ "
-
-#POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0C6'
-#POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0C7'
-
-POWERLEVEL9K_VCS_GIT_ICON=''
-
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Aliases
 alias tma='tmux attach -dt default || tmux new -s default'
@@ -63,6 +36,8 @@ alias xc='xclip -selection clipboard'
 alias dco='docker-compose'
 alias dcu='docker-compose up --force-recreate'
 alias dcd='docker-compose down'
+alias dcb='docker-compose build'
+alias dpa='docker ps -a'
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -157,6 +132,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f /usr/share/fzf/key-bindings.zsh ] && set -o vi && source /usr/share/fzf/key-bindings.zsh
 
 # Configure npm to stop asksing about root permissions
-#export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-#export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
-#export PATH="$PATH:$HOME/.npm-global/bin"
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export PATH="$PATH:$NPM_CONFIG_PREFIX/bin"
+export PATH="$PATH:$HOME/.npm-global/bin"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

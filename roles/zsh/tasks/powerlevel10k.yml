@@ -1,0 +1,12 @@
+- name: Install PowerLevel10k
+  git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    depth: 1
+    dest: "{{ arch_bootstrap_user_home }}/.oh-my-zsh/custom/themes/powerlevel10k"
+
+- name: Link PowerLevel10k config to ~/.p10k.zsh
+  file:
+    src: "{{ arch_bootstrap_home }}/roles/zsh/files/p10k.symlink"
+    dest: "{{ arch_bootstrap_user_home }}/.p10k.zsh"
+    state: link
+    force: yes

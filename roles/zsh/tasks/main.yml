@@ -29,13 +29,10 @@
     force: yes
   when: cloning is succeeded
 
-- name: Install PowerLevel9k
-  git:
-    repo: https://github.com/bhilburn/powerlevel9k.git
-    dest: "{{ arch_bootstrap_user_home }}/.oh-my-zsh/custom/themes/powerlevel9k"
-
 - name: Set zsh as default shell
   user:
     name: "{{ lookup('env','USER') }}"
     shell: /usr/bin/zsh
   become: yes
+
+- import_tasks: powerlevel10k.yml
