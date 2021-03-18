@@ -1,0 +1,17 @@
+- name: Install slock
+  pacman:
+    name: slock
+    state: present
+  become: yes
+
+- name: Copy slock@.service to systemd
+  template:
+    src: slock.service.j2
+    dest: "/etc/systemd/system/slock@.service"
+  become: yes
+
+- name: Enable slock@user.service
+  systemd:
+    name: slock@user.service
+    enabled: yes
+  become: yes
