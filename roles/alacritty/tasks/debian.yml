@@ -1,0 +1,6 @@
+- name: Install alacritty via apt-get
+  apt:
+    name: alacritty
+    state: latest
+  become: yes
+

@@ -1,0 +1,5 @@
+- name: Install alacritty via pacman
+  pacman:
+    name: alacritty
+    state: present
+  become: yes

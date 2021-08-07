@@ -27,7 +27,7 @@
     - aws
     - nodejs
     - npm
-    - termite
+    - alacritty
     - vim
     - neovim
     - browsers

@@ -1,0 +1,25 @@
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install alacritty
+  pacman:
+    name: "{{ role_path | basename }}"
+    state: present
+  become: yes
+
+- name: Provide alacritty config file
+  block:
+    - name: Create .config/alacritty directory if doesn't exist
+      file:
+        path: "{{ arch_bootstrap_user_home }}/.config/alacritty"
+        state: directory
+
+    - name: Symlink alacritty config file
+      file:
+#       src: files/alacritty.yml
+        src: "{{ arch_bootstrap_home }}/roles/alacritty/files/alacritty.yml"
+        dest: "{{ arch_bootstrap_user_home }}/.config/alacritty/alacritty.yml"
+        state: link
+        force: yes
