@@ -1,3 +1,6 @@
+# ⚠️ DEPRECATION NOTICE
+Since I've switched to NixOS a couple of years ago, I no longer maintain this repository.
+
 # Arch-bootstrap
 
 This project aims to bootstrap my Arch Linux development environment laptop.
